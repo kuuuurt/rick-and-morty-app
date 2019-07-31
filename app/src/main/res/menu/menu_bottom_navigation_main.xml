@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_characters"
+        android:title="Characters" />
+    <item
+        android:id="@+id/nav_locations"
+        android:title="Locations" />
+    <item android:title="Episodes" />
+</menu>
