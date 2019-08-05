@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Rick and Morty</string>
+    <string name="title_nav_episodes">Episodes</string>
+    <string name="title_nav_locations">Locations</string>
+    <string name="title_nav_characters">Characters</string>
 </resources>

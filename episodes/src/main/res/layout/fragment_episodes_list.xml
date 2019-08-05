@@ -6,21 +6,14 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recCharacters"
+        android:id="@+id/rec_episodes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/list_item_character" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test"
-        android:id="@+id/btn_test"
-        app:layout_constraintTop_toTopOf="parent"/>
+        tools:listitem="@layout/list_item_episode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

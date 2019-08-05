@@ -9,5 +9,18 @@
     <fragment
         android:id="@+id/characters_list_fragment"
         android:name="com.kurt.example.rickandmorty.characters.presentation.characterslist.CharactersListFragment"
-        android:label="Characters" />
+        android:label="Characters" >
+        <action
+            android:id="@+id/action_view_character_details"
+            app:destination="@+id/character_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/characters_list_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/character_details_fragment"
+        android:name="com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragment"
+        android:label="Character Details" />
 </navigation>

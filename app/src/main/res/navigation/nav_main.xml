@@ -5,5 +5,6 @@
 
     <include app:graph="@navigation/nav_characters"/>
     <include app:graph="@navigation/nav_locations"/>
+    <include app:graph="@navigation/nav_episodes"/>
 
 </navigation>

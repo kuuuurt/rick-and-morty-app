@@ -3,6 +3,7 @@ package com.kurt.example.rickandmorty
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -11,7 +12,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val appBarConfiguration: AppBarConfiguration by lazy {
+        AppBarConfiguration.Builder(setOf(R.id.characters_list_fragment, R.id.locations_list_fragment, R.id.episodes_list_fragment)).build()
+    }
+
+    private val navController: NavController by lazy { findNavController(R.id.fragment_nav_host) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,15 +27,11 @@ class MainActivity : AppCompatActivity() {
 
         val btmNavMain = findViewById<BottomNavigationView>(R.id.btm_nav_main)
 
-        val navController = findNavController(R.id.fragment_nav_host)
         btmNavMain.setupWithNavController(navController)
-
-        appBarConfiguration = AppBarConfiguration.Builder(R.id.nav_characters, R.id.nav_locations).build()
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.fragment_nav_host)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

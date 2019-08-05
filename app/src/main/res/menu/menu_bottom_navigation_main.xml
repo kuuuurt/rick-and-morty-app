@@ -3,9 +3,11 @@
 
     <item
         android:id="@+id/nav_characters"
-        android:title="Characters" />
+        android:title="@string/title_nav_characters" />
     <item
         android:id="@+id/nav_locations"
-        android:title="Locations" />
-    <item android:title="Episodes" />
+        android:title="@string/title_nav_locations" />
+    <item
+        android:id="@+id/nav_episodes"
+        android:title="@string/title_nav_episodes" />
 </menu>
