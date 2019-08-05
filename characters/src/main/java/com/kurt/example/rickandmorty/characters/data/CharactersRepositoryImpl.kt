@@ -13,6 +13,6 @@ import javax.inject.Inject
 class CharactersRepositoryImpl @Inject constructor(
     private val remoteSource: CharactersRemoteSource
 ) : CharactersRepository {
-    override suspend fun getCharacters(): List<Character> = remoteSource.getCharacters()
+    override suspend fun getCharacters(page: Int?): List<Character> = remoteSource.getCharacters(page)
     override suspend fun getCharacter(characterId: Int) = remoteSource.getCharacter(characterId)
 }

@@ -15,7 +15,8 @@
         android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/list_item_character" />
+        tools:listitem="@layout/list_item_character"
+        tools:visibility="visible" />
 
     <com.kurt.example.rickandmorty.core.presentation.views.LoadingView
         android:id="@+id/loading_characters"
@@ -24,6 +25,19 @@
         app:layout_constraintBottom_toBottomOf="@id/rec_characters"
         app:layout_constraintEnd_toEndOf="@id/rec_characters"
         app:layout_constraintStart_toStartOf="@id/rec_characters"
-        app:layout_constraintTop_toTopOf="@id/rec_characters" />
+        app:layout_constraintTop_toTopOf="@id/rec_characters"
+        tools:visibility="gone" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.EmptyView
+        android:id="@+id/empty_characters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:description="@string/empty_characters_description"
+        app:layout_constraintBottom_toBottomOf="@id/rec_characters"
+        app:layout_constraintEnd_toEndOf="@id/rec_characters"
+        app:layout_constraintStart_toStartOf="@id/rec_characters"
+        app:layout_constraintTop_toTopOf="@id/rec_characters"
+        app:title="@string/empty_characters_title"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

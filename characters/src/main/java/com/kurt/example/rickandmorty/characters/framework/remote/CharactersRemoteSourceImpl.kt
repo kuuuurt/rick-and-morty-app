@@ -1,7 +1,6 @@
 package com.kurt.example.rickandmorty.characters.framework.remote
 
 import com.kurt.example.rickandmorty.characters.data.CharactersRemoteSource
-import com.kurt.example.rickandmorty.core.domain.entities.Character
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
@@ -20,7 +19,7 @@ class CharactersRemoteSourceImpl @Inject constructor() : CharactersRemoteSource 
 
     private val api = retrofit.create(CharactersApi::class.java)
 
-    override suspend fun getCharacters() = api.getCharacters().results
+    override suspend fun getCharacters(page: Int?) = api.getCharacters(page).results
     override suspend fun getCharacter(characterId: Int) = api.getCharacter(characterId)
 
 }

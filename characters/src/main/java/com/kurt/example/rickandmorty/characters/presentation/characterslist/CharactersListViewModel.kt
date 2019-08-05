@@ -1,9 +1,11 @@
 package com.kurt.example.rickandmorty.characters.presentation.characterslist
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.kurt.example.rickandmorty.characters.domain.usecases.GetCharacters
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.presentation.UiState
@@ -19,24 +21,14 @@ import kotlinx.coroutines.launch
 class CharactersListViewModel(
     private val getCharacters: GetCharacters
 ) : ViewModel() {
+    private val charactersDataSourceFactory =
+        CharactersDataSource.Factory(getCharacters, viewModelScope)
 
-    private val _characters = MutableLiveData<List<Character>>()
-    val characters: LiveData<List<Character>> = _characters
+    val characters: LiveData<PagedList<Character>> =
+        LivePagedListBuilder(charactersDataSourceFactory, 20).build()
 
-    private val _getCharactersState = MutableLiveData<UiState>()
-    val getCharactersState: LiveData<UiState> = _getCharactersState
-
-    init {
-        getCharacters()
-    }
-
-    fun getCharacters() {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            _getCharactersState.postValue(UiState.Error(throwable))
-        }) {
-            _getCharactersState.postValue(UiState.Loading)
-            _characters.postValue(getCharacters.invoke())
-            _getCharactersState.postValue(UiState.Complete)
+    val getCharactersState: LiveData<UiState> =
+        Transformations.switchMap(charactersDataSourceFactory.sourceLiveData) {
+            it.getCharactersState
         }
-    }
 }

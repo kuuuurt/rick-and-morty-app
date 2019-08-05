@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Characters</string>
+    <string name="empty_characters_title">No characters found</string>
+    <string name="empty_characters_description">Please try again</string>
 </resources>

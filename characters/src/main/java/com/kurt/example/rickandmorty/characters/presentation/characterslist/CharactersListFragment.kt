@@ -2,16 +2,14 @@ package com.kurt.example.rickandmorty.characters.presentation.characterslist
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.characters.R
 import com.kurt.example.rickandmorty.characters.di.DaggerCharactersListComponent
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
+import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import javax.inject.Inject
 
@@ -28,7 +26,7 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
     override val viewModel: CharactersListViewModel by viewModels(factoryProducer = { factory })
     override val layout: Int = R.layout.fragment_characters_list
 
-    private val charactersAdapter by lazy { CharactersListAdapter() }
+    private val charactersAdapter by lazy { CharactersPagedListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +34,8 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
 
         val recCharacters by lazy { view.findViewById<RecyclerView>(R.id.rec_characters) }
         val loadingCharacters by lazy { view.findViewById<LoadingView>(R.id.loading_characters) }
+        val emptyCharacters by lazy { view.findViewById<EmptyView>(R.id.empty_characters) }
+
         recCharacters.adapter = charactersAdapter
 
         viewModel.characters.observe(this, Observer {
@@ -45,6 +45,7 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
         viewModel.getCharactersState.observe(this, Observer {
             recCharacters.visibility = if (it == UiState.Complete) View.VISIBLE else View.GONE
             loadingCharacters.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
+            emptyCharacters.visibility = if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
         })
     }
 }

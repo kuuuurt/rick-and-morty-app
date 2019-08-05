@@ -9,6 +9,6 @@ import com.kurt.example.rickandmorty.core.domain.entities.Character
  * @since 08/05/2019
  */
 interface CharactersRemoteSource {
-    suspend fun getCharacters(): List<Character>
+    suspend fun getCharacters(page: Int? = null): List<Character>
     suspend fun getCharacter(characterId: Int): Character
 }
