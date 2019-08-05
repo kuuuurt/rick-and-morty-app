@@ -6,21 +6,24 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recCharacters"
+        android:id="@+id/rec_characters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        android:padding="@dimen/recyclerview_padding"
+        android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/list_item_character" />
 
-    <Button
-        android:layout_width="match_parent"
+    <com.kurt.example.rickandmorty.core.presentation.views.LoadingView
+        android:id="@+id/loading_characters"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"
-        android:id="@+id/btn_test"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@id/rec_characters"
+        app:layout_constraintEnd_toEndOf="@id/rec_characters"
+        app:layout_constraintStart_toStartOf="@id/rec_characters"
+        app:layout_constraintTop_toTopOf="@id/rec_characters" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

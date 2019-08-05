@@ -10,13 +10,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/card_padding">
+        android:animateLayoutChanges="true">
+
+        <ImageView
+            android:id="@+id/img_character"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@android:color/black"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/txt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:padding="@dimen/card_padding"
+            app:layout_constraintTop_toBottomOf="@id/img_character"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="Character Name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.marvel.example.core.presentation
+package com.kurt.example.rickandmorty.core.presentation
 
 /**
  * Copyright 2018, Kurt Renzo Acosta, All rights reserved.
@@ -9,5 +9,5 @@ package com.marvel.example.core.presentation
 sealed class UiState {
     object Complete : UiState()
     object Loading : UiState()
-    class Error(val errorMessage: String) : UiState()
+    class Error(val throwable: Throwable) : UiState()
 }

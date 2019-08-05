@@ -4,10 +4,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.characters.R
+import com.kurt.example.rickandmorty.characters.di.DaggerCharactersListComponent
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
+import com.kurt.example.rickandmorty.core.presentation.UiState
+import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
+import javax.inject.Inject
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
@@ -16,15 +22,29 @@ import com.kurt.example.rickandmorty.core.presentation.BaseFragment
  * @since 07/31/2019
  */
 class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
-    override val viewModel: CharactersListViewModel by viewModels()
+    @Inject
+    lateinit var factory: CharactersListViewModelFactory
+
+    override val viewModel: CharactersListViewModel by viewModels(factoryProducer = { factory })
     override val layout: Int = R.layout.fragment_characters_list
+
+    private val charactersAdapter by lazy { CharactersListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnTest by lazy { view.findViewById<Button>(R.id.btn_test) }
+        DaggerCharactersListComponent.create().inject(this)
 
-        btnTest.setOnClickListener {
-            it.findNavController().navigate(R.id.action_view_character_details)
-        }
+        val recCharacters by lazy { view.findViewById<RecyclerView>(R.id.rec_characters) }
+        val loadingCharacters by lazy { view.findViewById<LoadingView>(R.id.loading_characters) }
+        recCharacters.adapter = charactersAdapter
+
+        viewModel.characters.observe(this, Observer {
+            charactersAdapter.submitList(it)
+        })
+
+        viewModel.getCharactersState.observe(this, Observer {
+            recCharacters.visibility = if (it == UiState.Complete) View.VISIBLE else View.GONE
+            loadingCharacters.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
+        })
     }
 }
