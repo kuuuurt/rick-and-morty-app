@@ -24,5 +24,9 @@
         android:id="@+id/character_details_fragment"
         android:name="com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragment"
         android:label="Character Details"
-        tools:layout="@layout/fragment_character_details"/>
+        tools:layout="@layout/fragment_character_details">
+        <argument
+            android:name="character_id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -14,7 +14,7 @@ import com.marvel.example.core.presentation.BasePagedListAdapter
  * @author Kurt Renzo Acosta
  * @since 08/05/2019
  */
-class CharactersPagedListAdapter : BasePagedListAdapter<Character>(
+class CharactersPagedListAdapter(val onClick: (Int) -> Unit) : BasePagedListAdapter<Character>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {
@@ -33,6 +33,8 @@ class CharactersPagedListAdapter : BasePagedListAdapter<Character>(
                     .into(imgCharacter)
 
                 txtName.text = character.name
+
+                setOnClickListener { onClick(character.id) }
             }
         }
     }

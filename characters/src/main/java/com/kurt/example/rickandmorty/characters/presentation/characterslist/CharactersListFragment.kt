@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.characters.R
 import com.kurt.example.rickandmorty.characters.di.DaggerCharactersListComponent
+import com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragment
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
@@ -26,7 +28,10 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
     override val viewModel: CharactersListViewModel by viewModels(factoryProducer = { factory })
     override val layout: Int = R.layout.fragment_characters_list
 
-    private val charactersAdapter by lazy { CharactersPagedListAdapter() }
+    private val charactersAdapter by lazy { CharactersPagedListAdapter {
+        val direction = CharactersListFragmentDirections.actionViewCharacterDetails(it)
+        findNavController().navigate(direction)
+    } }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

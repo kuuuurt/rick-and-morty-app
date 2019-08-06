@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  * @since 07/31/2019
  */
 class CharactersListViewModel(
-    private val getCharacters: GetCharacters
+    getCharacters: GetCharacters
 ) : ViewModel() {
     private val charactersDataSourceFactory =
         CharactersDataSource.Factory(getCharacters, viewModelScope)
