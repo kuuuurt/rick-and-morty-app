@@ -1,6 +1,6 @@
-package com.kurt.example.rickandmorty.characters.data
+package com.kurt.example.rickandmorty.core.data.characters
 
-import com.kurt.example.rickandmorty.characters.domain.repositories.CharactersRepository
+import com.kurt.example.rickandmorty.core.domain.repositories.CharactersRepository
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import javax.inject.Inject
 

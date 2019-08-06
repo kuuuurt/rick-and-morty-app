@@ -1,6 +1,6 @@
 package com.kurt.example.rickandmorty.characters.di
 
-import com.kurt.example.rickandmorty.characters.domain.usecases.GetCharacters
+import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacters
 import com.kurt.example.rickandmorty.characters.presentation.characterslist.CharactersListViewModelFactory
 import dagger.Module
 

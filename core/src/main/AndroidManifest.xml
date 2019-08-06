@@ -1,2 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kurt.example.rickandmorty.core" />
+    package="com.kurt.example.rickandmorty.core" >
+
+    <application android:name=".presentation.app.RickAndMortyApplication"/>
+
+</manifest>

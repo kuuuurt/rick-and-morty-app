@@ -1,4 +1,4 @@
-package com.kurt.example.rickandmorty.characters.framework.remote
+package com.kurt.example.rickandmorty.core.framework.characters.remote
 
 import com.kurt.example.rickandmorty.core.data.dto.RickAndMortyResponse
 import com.kurt.example.rickandmorty.core.domain.entities.Character

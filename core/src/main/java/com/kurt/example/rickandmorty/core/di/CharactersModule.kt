@@ -1,9 +1,9 @@
-package com.kurt.example.rickandmorty.characters.di
+package com.kurt.example.rickandmorty.core.di
 
-import com.kurt.example.rickandmorty.characters.data.CharactersRemoteSource
-import com.kurt.example.rickandmorty.characters.data.CharactersRepositoryImpl
-import com.kurt.example.rickandmorty.characters.domain.repositories.CharactersRepository
-import com.kurt.example.rickandmorty.characters.framework.remote.CharactersRemoteSourceImpl
+import com.kurt.example.rickandmorty.core.data.characters.CharactersRemoteSource
+import com.kurt.example.rickandmorty.core.data.characters.CharactersRepositoryImpl
+import com.kurt.example.rickandmorty.core.domain.repositories.CharactersRepository
+import com.kurt.example.rickandmorty.core.framework.characters.remote.CharactersRemoteSourceImpl
 import dagger.Binds
 import dagger.Module
 

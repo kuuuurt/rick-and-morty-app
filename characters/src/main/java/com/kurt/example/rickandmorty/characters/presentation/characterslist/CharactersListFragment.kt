@@ -11,6 +11,7 @@ import com.kurt.example.rickandmorty.characters.di.DaggerCharactersListComponent
 import com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragment
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
+import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import javax.inject.Inject
@@ -35,7 +36,13 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DaggerCharactersListComponent.create().inject(this)
+
+        DaggerCharactersListComponent
+            .builder()
+            .coreComponent(coreComponent())
+            .build()
+            .inject(this)
+
 
         val recCharacters by lazy { view.findViewById<RecyclerView>(R.id.rec_characters) }
         val loadingCharacters by lazy { view.findViewById<LoadingView>(R.id.loading_characters) }

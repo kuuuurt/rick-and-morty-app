@@ -2,7 +2,7 @@ package com.kurt.example.rickandmorty.characters.presentation.characterslist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kurt.example.rickandmorty.characters.domain.usecases.GetCharacters
+import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacters
 import javax.inject.Inject
 
 /**

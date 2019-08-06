@@ -1,6 +1,8 @@
 package com.kurt.example.rickandmorty.characters.di
 
 import com.kurt.example.rickandmorty.characters.presentation.characterslist.CharactersListFragment
+import com.kurt.example.rickandmorty.core.di.CharactersModule
+import com.kurt.example.rickandmorty.core.di.CoreComponent
 import dagger.Component
 
 /**
@@ -9,7 +11,7 @@ import dagger.Component
  * @author Kurt Renzo Acosta
  * @since 08/05/2019
  */
-@Component(modules = [CharactersModule::class, CharactersListModule::class])
+@Component(dependencies = [CoreComponent::class], modules = [CharactersListModule::class])
 interface CharactersListComponent {
     fun inject(charactersListFragment: CharactersListFragment)
 }

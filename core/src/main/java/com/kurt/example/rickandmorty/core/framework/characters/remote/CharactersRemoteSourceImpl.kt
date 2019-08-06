@@ -1,6 +1,6 @@
-package com.kurt.example.rickandmorty.characters.framework.remote
+package com.kurt.example.rickandmorty.core.framework.characters.remote
 
-import com.kurt.example.rickandmorty.characters.data.CharactersRemoteSource
+import com.kurt.example.rickandmorty.core.data.characters.CharactersRemoteSource
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject

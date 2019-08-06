@@ -1,6 +1,6 @@
-package com.kurt.example.rickandmorty.characters.domain.usecases
+package com.kurt.example.rickandmorty.core.domain.usecases
 
-import com.kurt.example.rickandmorty.characters.domain.repositories.CharactersRepository
+import com.kurt.example.rickandmorty.core.domain.repositories.CharactersRepository
 import javax.inject.Inject
 
 /**

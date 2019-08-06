@@ -1,4 +1,4 @@
-package com.kurt.example.rickandmorty.characters.data
+package com.kurt.example.rickandmorty.core.domain.repositories
 
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 
@@ -8,7 +8,7 @@ import com.kurt.example.rickandmorty.core.domain.entities.Character
  * @author Kurt Renzo Acosta
  * @since 08/05/2019
  */
-interface CharactersRemoteSource {
+interface CharactersRepository {
     suspend fun getCharacters(page: Int? = null): List<Character>
     suspend fun getCharacter(characterId: Int): Character
 }
