@@ -11,7 +11,7 @@ import dagger.Component
  * @author Kurt Renzo Acosta
  * @since 08/05/2019
  */
-@Component(dependencies = [CoreComponent::class], modules = [CharactersListModule::class])
+@Component(dependencies = [CoreComponent::class])
 interface CharactersListComponent {
     fun inject(charactersListFragment: CharactersListFragment)
 }

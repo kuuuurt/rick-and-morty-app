@@ -1,6 +1,6 @@
 package com.kurt.example.rickandmorty.core.framework.characters.remote
 
-import com.kurt.example.rickandmorty.core.data.dto.RickAndMortyResponse
+import com.kurt.example.rickandmorty.core.data.models.RickAndMortyResponse
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import retrofit2.http.GET
 import retrofit2.http.Path

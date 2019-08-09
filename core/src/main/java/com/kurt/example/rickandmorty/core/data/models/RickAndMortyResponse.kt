@@ -1,4 +1,4 @@
-package com.kurt.example.rickandmorty.core.data.dto
+package com.kurt.example.rickandmorty.core.data.models
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.

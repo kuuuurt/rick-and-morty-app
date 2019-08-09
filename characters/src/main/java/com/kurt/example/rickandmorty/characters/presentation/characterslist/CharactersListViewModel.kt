@@ -9,8 +9,6 @@ import androidx.paging.PagedList
 import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacters
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.presentation.UiState
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.

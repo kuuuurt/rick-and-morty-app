@@ -12,8 +12,30 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="8dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/list_item_episode" />
+        tools:listitem="@layout/list_item_episode"
+        tools:visibility="visible" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.LoadingView
+        android:id="@+id/loading_episodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/rec_episodes"
+        app:layout_constraintEnd_toEndOf="@id/rec_episodes"
+        app:layout_constraintStart_toStartOf="@id/rec_episodes"
+        app:layout_constraintTop_toTopOf="@id/rec_episodes"
+        tools:visibility="gone" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.EmptyView
+        android:id="@+id/empty_episodes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:description="@string/empty_episodes_description"
+        app:layout_constraintBottom_toBottomOf="@id/rec_episodes"
+        app:layout_constraintTop_toTopOf="@id/rec_episodes"
+        app:title="@string/empty_episodes_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
