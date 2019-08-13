@@ -22,7 +22,7 @@ import javax.inject.Inject
  */
 class EpisodesListFragment : BaseFragment<EpisodesListViewModel>() {
     @Inject
-    lateinit var factory: EpisodesListViewModelFactory
+    lateinit var factory: EpisodesListViewModel.Factory
 
     override val viewModel: EpisodesListViewModel by viewModels(factoryProducer = { factory })
     override val layout: Int = R.layout.fragment_episodes_list
