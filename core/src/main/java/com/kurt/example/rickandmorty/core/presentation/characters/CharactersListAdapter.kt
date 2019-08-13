@@ -1,5 +1,6 @@
 package com.kurt.example.rickandmorty.core.presentation.characters
 
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView

@@ -1,11 +1,14 @@
 package com.kurt.example.rickandmorty.episodes.presentation.episodedetails
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
@@ -47,7 +50,11 @@ class EpisodeDetailsFragment : BaseFragment<EpisodeDetailsViewModel>() {
     private lateinit var loadingCharacters: LoadingView
     private lateinit var emptyCharacters: EmptyView
 
-    private val charactersAdapter by lazy { CharactersListAdapter {} }
+    private val charactersAdapter by lazy {
+        CharactersListAdapter {
+            findNavController().navigate(Uri.parse("rickandmorty://characterdetails/$it"))
+        }
+    }
 
     private val args by navArgs<EpisodeDetailsFragmentArgs>()
 

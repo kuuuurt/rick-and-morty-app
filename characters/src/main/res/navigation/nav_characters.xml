@@ -28,5 +28,8 @@
         <argument
             android:name="character_id"
             app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="rickandmorty://characterdetails/{character_id}"/>
     </fragment>
 </navigation>

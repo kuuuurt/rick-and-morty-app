@@ -29,5 +29,6 @@
         <argument
             android:name="episode_id"
             app:argType="integer" />
+        <deepLink app:uri="rickandmorty://episodedetails/{episode_id}"/>
     </fragment>
 </navigation>

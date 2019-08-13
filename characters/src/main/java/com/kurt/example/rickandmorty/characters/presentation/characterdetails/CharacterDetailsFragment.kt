@@ -1,5 +1,6 @@
 package com.kurt.example.rickandmorty.characters.presentation.characterdetails
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -7,6 +8,9 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.characters.R
@@ -52,7 +56,21 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
     private lateinit var loadingEpisodes: LoadingView
     private lateinit var emptyEpisodes: EmptyView
 
-    private val episodesAdapter by lazy { EpisodesListAdapter {} }
+    private val episodesAdapter by lazy {
+        EpisodesListAdapter {
+            findNavController().navigate(
+                Uri.parse("rickandmorty://episodedetails/$it"),
+                NavOptions.Builder()
+                    .setLaunchSingleTop(false)
+                    .setPopUpTo(R.id.character_details_fragment, false)
+                    .setEnterAnim(R.anim.nav_default_enter_anim)
+                    .setExitAnim(R.anim.nav_default_exit_anim)
+                    .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
+                    .setPopExitAnim(R.anim.nav_default_pop_exit_anim)
+                    .build()
+            )
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
