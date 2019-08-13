@@ -60,14 +60,7 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
     private lateinit var loadingEpisodes: LoadingView
     private lateinit var emptyEpisodes: EmptyView
 
-    private val episodesAdapter by lazy {
-        EpisodesListAdapter {
-            findNavController().navigateUriWithDefaultOptions(
-                Uri.parse("rickandmorty://episodedetails/$it"),
-                R.id.character_details_fragment
-            )
-        }
-    }
+    private val episodesAdapter by lazy { EpisodesListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +95,7 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         emptyEpisodes = view.findViewById(R.id.empty_episodes)
 
         Glide.with(requireContext())
-            .load(args.imgUrl)
+            .load(args.imgUrl.replace("\\", "/"))
             .into(imgCharacter)
 
         txtName.text = args.characterName

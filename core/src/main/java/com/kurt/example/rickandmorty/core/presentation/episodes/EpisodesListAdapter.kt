@@ -1,9 +1,14 @@
 package com.kurt.example.rickandmorty.core.presentation.episodes
 
+import android.net.Uri
 import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.R
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
+import com.kurt.example.rickandmorty.core.presentation.utils.navigateUriWithDefaultOptions
 import com.marvel.example.core.presentation.BaseListAdapter
 
 /**
@@ -12,7 +17,7 @@ import com.marvel.example.core.presentation.BaseListAdapter
  * @author Kurt Renzo Acosta
  * @since 08/05/2019
  */
-class EpisodesListAdapter(val onClick: (Int) -> Unit) : BaseListAdapter<Episode>(
+class EpisodesListAdapter : BaseListAdapter<Episode>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {
@@ -28,7 +33,11 @@ class EpisodesListAdapter(val onClick: (Int) -> Unit) : BaseListAdapter<Episode>
             txtTitle.text = episode.name
             txtEpisode.text = episode.episode
 
-            setOnClickListener { onClick(episode.id) }
+            setOnClickListener {
+                findNavController().navigateUriWithDefaultOptions(
+                    Uri.parse("rickandmorty://episodedetails/${episode.id}")
+                )
+            }
         }
     }
 }

@@ -36,6 +36,6 @@
             app:argType="string" />
         <deepLink
             android:id="@+id/deepLink"
-            app:uri="rickandmorty://characterdetails/{character_id}"/>
+            app:uri="rickandmorty://characterdetails/{character_id}/{img_url}/{character_name}"/>
     </fragment>
 </navigation>

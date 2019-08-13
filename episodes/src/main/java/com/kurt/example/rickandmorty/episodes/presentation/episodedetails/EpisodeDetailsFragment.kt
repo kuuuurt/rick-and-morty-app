@@ -51,14 +51,7 @@ class EpisodeDetailsFragment : BaseFragment<EpisodeDetailsViewModel>() {
     private lateinit var loadingCharacters: LoadingView
     private lateinit var emptyCharacters: EmptyView
 
-    private val charactersAdapter by lazy {
-        CharactersListAdapter {
-            findNavController().navigateUriWithDefaultOptions(
-                Uri.parse("rickandmorty://characterdetails/$it"),
-                R.id.episode_details_fragment
-            )
-        }
-    }
+    private val charactersAdapter by lazy { CharactersListAdapter() }
 
     private val args by navArgs<EpisodeDetailsFragmentArgs>()
 
