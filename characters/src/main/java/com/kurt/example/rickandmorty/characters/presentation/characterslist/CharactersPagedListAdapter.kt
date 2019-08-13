@@ -2,6 +2,7 @@ package com.kurt.example.rickandmorty.characters.presentation.characterslist
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.kurt.example.rickandmorty.characters.R
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.presentation.BasePagedListAdapter
-import com.kurt.example.rickandmorty.core.presentation.utils.createDefaultNavOptions
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
@@ -38,10 +38,17 @@ class CharactersPagedListAdapter : BasePagedListAdapter<Character>(
                 txtName.text = character.name
 
                 setOnClickListener {
+                    ViewCompat.setTransitionName(imgCharacter, "imgCharacter")
+                    ViewCompat.setTransitionName(txtName, "txtName")
                     val extras = FragmentNavigatorExtras(
-                        imgCharacter to "imgCharacter"
+                        imgCharacter to imgCharacter.transitionName,
+                        txtName to txtName.transitionName
                     )
-                    val direction = CharactersListFragmentDirections.actionViewCharacterDetails(character.id, character.image)
+                    val direction = CharactersListFragmentDirections.actionViewCharacterDetails(
+                        character.id,
+                        character.image,
+                        character.name
+                    )
                     findNavController().navigate(direction, extras)
                 }
             }

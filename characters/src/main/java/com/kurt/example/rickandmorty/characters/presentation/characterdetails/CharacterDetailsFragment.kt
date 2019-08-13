@@ -101,13 +101,13 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         loadingEpisodes = view.findViewById(R.id.loading_episodes)
         emptyEpisodes = view.findViewById(R.id.empty_episodes)
 
-        recEpisodes.adapter = episodesAdapter
-
         Glide.with(requireContext())
             .load(args.imgUrl)
             .into(imgCharacter)
 
-        ViewCompat.setTransitionName(imgCharacter, "imgCharacter")
+        txtName.text = args.characterName
+
+        recEpisodes.adapter = episodesAdapter
 
         viewModel.character.observe(this, Observer {
             GlideApp.with(requireContext())
@@ -127,9 +127,9 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         })
 
         viewModel.getCharacterState.observe(this, Observer {
-//            grpCharacter.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
-//            loadingCharacter.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
-//            emptyCharacter.visibility = if (it is UiState.Error) View.VISIBLE else View.GONE
+            grpCharacter.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
+            loadingCharacter.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
+            emptyCharacter.visibility = if (it is UiState.Error) View.VISIBLE else View.GONE
         })
 
         viewModel.getEpisodesState.observe(this, Observer {
