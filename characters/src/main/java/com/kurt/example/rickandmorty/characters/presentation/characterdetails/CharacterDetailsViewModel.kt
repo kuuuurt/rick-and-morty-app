@@ -1,6 +1,5 @@
 package com.kurt.example.rickandmorty.characters.presentation.characterdetails
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
@@ -9,7 +8,7 @@ import com.kurt.example.rickandmorty.core.domain.usecases.GetEpisode
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 /**
@@ -63,10 +62,11 @@ class CharacterDetailsViewModel(
             }) {
                 _getEpisodesState.postValue(UiState.Loading)
 
-                val episodes = character.episodes
+                val deferredEpisodes = character.episodes
                     .map { it.split("/").last().toInt() }
                     .map { async { getEpisode(it) } }
-                    .map { it.await() }
+
+                val episodes = deferredEpisodes.awaitAll()
 
                 _episodes.postValue(episodes)
                 _getEpisodesState.postValue(UiState.Complete)
