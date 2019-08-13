@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
 import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacter
+import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacters
 import com.kurt.example.rickandmorty.core.domain.usecases.GetEpisode
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -20,17 +21,17 @@ import kotlinx.coroutines.launch
 class EpisodeDetailsViewModel(
     private val episodeId: Int,
     private val getEpisode: GetEpisode,
-    private val getCharacter: GetCharacter
+    private val getCharacters: GetCharacters
 ) : ViewModel() {
     class Factory(
         private val episodeId: Int,
         private val getEpisode: GetEpisode,
-        private val getCharacter: GetCharacter
+        private val getCharacters: GetCharacters
     ) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(EpisodeDetailsViewModel::class.java)) {
-                return EpisodeDetailsViewModel(episodeId, getEpisode, getCharacter) as T
+                return EpisodeDetailsViewModel(episodeId, getEpisode, getCharacters) as T
             }
             throw IllegalArgumentException("ViewModel not found")
         }
@@ -61,11 +62,12 @@ class EpisodeDetailsViewModel(
                 _getCharactersState.postValue(UiState.Error(throwable))
             } ) {
                 _getCharactersState.postValue(UiState.Loading)
-                val deferredCharacters = episode.characters
-                    .map { it.split("/").last().toInt() }
-                    .map { async { getCharacter(it) }}
 
-                val characters = deferredCharacters.awaitAll()
+                val characterIds = episode.characters
+                    .map { it.split("/").last().toInt() }
+
+                val characters = getCharacters(characterIds)
+
                 _characters.postValue(characters)
                 _getCharactersState.postValue(UiState.Complete)
             }

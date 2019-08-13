@@ -15,10 +15,11 @@ import javax.inject.Inject
 class CharactersRemoteSourceImpl @Inject constructor() : BaseRemoteSource<CharactersApi>(
     CharactersApi::class.java
 ), CharactersRemoteSource {
-    override suspend fun getCharacters(page: Int?): List<Character> = try {
-        api.getCharacters(page).results
+    override suspend fun getAllCharacters(page: Int?): List<Character> = try {
+        api.getAllCharacters(page).results
     } catch (exception: HttpException) {
         if (exception.code() == 404) listOf() else throw exception
     }
+    override suspend fun getCharacters(characterIds: List<Int>) = api.getCharacters(characterIds)
     override suspend fun getCharacter(characterId: Int) = api.getCharacter(characterId)
 }

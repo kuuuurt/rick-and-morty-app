@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
-import com.kurt.example.rickandmorty.core.domain.usecases.GetEpisodes
+import com.kurt.example.rickandmorty.core.domain.usecases.GetAllEpisodes
 import javax.inject.Inject
 
 /**
@@ -14,21 +14,21 @@ import javax.inject.Inject
  * @author Kurt Renzo Acosta
  * @since 08/05/2019
  */
-class EpisodesListViewModel(getEpisodes: GetEpisodes) : ViewModel() {
+class EpisodesListViewModel(getAllEpisodes: GetAllEpisodes) : ViewModel() {
 
     class Factory @Inject constructor(
-        private val getEpisodes: GetEpisodes
+        private val getAllEpisodes: GetAllEpisodes
     ) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(EpisodesListViewModel::class.java)) {
-                return EpisodesListViewModel(getEpisodes) as T
+                return EpisodesListViewModel(getAllEpisodes) as T
             }
             throw IllegalArgumentException("ViewModel not found")
         }
     }
 
-    val episodesDataSourceFactory = EpisodesDataSource.Factory(getEpisodes, viewModelScope)
+    val episodesDataSourceFactory = EpisodesDataSource.Factory(getAllEpisodes, viewModelScope)
     val episodes = LivePagedListBuilder(episodesDataSourceFactory, 20).build()
     val getEpisodesState = Transformations.switchMap(episodesDataSourceFactory.sourceLiveData) {
         it.getEpisodesState

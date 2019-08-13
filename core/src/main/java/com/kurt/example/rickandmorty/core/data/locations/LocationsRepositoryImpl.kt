@@ -1,6 +1,8 @@
 package com.kurt.example.rickandmorty.core.data.locations
 
 import com.kurt.example.rickandmorty.core.domain.repositories.LocationsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -12,6 +14,11 @@ import javax.inject.Inject
 class LocationsRepositoryImpl @Inject constructor(
     private val remoteSource: LocationsRemoteSource
 ) : LocationsRepository {
-    override suspend fun getLocations(page: Int?) = remoteSource.getLocations(page)
-    override suspend fun getLocation(locationId: Int) = remoteSource.getLocation(locationId)
+    override suspend fun getAllLocations(page: Int?) = withContext(Dispatchers.IO) {
+        remoteSource.getLocations(page)
+    }
+
+    override suspend fun getLocation(locationId: Int) = withContext(Dispatchers.IO) {
+        remoteSource.getLocation(locationId)
+    }
 }

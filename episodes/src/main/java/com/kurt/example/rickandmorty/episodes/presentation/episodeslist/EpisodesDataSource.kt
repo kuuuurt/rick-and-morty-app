@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
-import com.kurt.example.rickandmorty.core.domain.usecases.GetEpisodes
+import com.kurt.example.rickandmorty.core.domain.usecases.GetAllEpisodes
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
@@ -19,19 +18,19 @@ import retrofit2.HttpException
  * @since 08/05/2019
  */
 class EpisodesDataSource(
-    private val getEpisodes: GetEpisodes,
+    private val getAllEpisodes: GetAllEpisodes,
     private val scope: CoroutineScope
 ) : PageKeyedDataSource<Int, Episode>() {
 
     class Factory(
-        private val getEpisodes: GetEpisodes,
+        private val getAllEpisodes: GetAllEpisodes,
         private val scope: CoroutineScope
     ) : DataSource.Factory<Int, Episode>() {
         val sourceLiveData = MutableLiveData<EpisodesDataSource>()
         private lateinit var latestSource: EpisodesDataSource
 
         override fun create(): DataSource<Int, Episode> {
-            latestSource = EpisodesDataSource(getEpisodes, scope)
+            latestSource = EpisodesDataSource(getAllEpisodes, scope)
             sourceLiveData.postValue(latestSource)
             return latestSource
         }
@@ -48,7 +47,7 @@ class EpisodesDataSource(
             _getEpisodesState.postValue(UiState.Error(throwable))
         }) {
             _getEpisodesState.postValue(UiState.Loading)
-            val episodes = getEpisodes()
+            val episodes = getAllEpisodes()
             callback.onResult(episodes, null, 2)
             _getEpisodesState.postValue(UiState.Complete)
             if (episodes.isEmpty()) {
@@ -61,7 +60,7 @@ class EpisodesDataSource(
         scope.launch(CoroutineExceptionHandler { _, throwable ->
             _getEpisodesState.postValue(UiState.Error(throwable))
         }) {
-            callback.onResult(getEpisodes(params.key), params.key + 1)
+            callback.onResult(getAllEpisodes(params.key), params.key + 1)
             _getEpisodesState.postValue(UiState.Complete)
         }
     }
@@ -70,7 +69,7 @@ class EpisodesDataSource(
         scope.launch(CoroutineExceptionHandler { _, throwable ->
             _getEpisodesState.postValue(UiState.Error(throwable))
         }) {
-            callback.onResult(getEpisodes(params.key), params.key - 1)
+            callback.onResult(getAllEpisodes(params.key), params.key - 1)
             _getEpisodesState.postValue(UiState.Complete)
         }
     }

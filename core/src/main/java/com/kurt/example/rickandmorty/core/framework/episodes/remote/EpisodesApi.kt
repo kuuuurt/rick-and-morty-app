@@ -14,7 +14,10 @@ import retrofit2.http.Query
  */
 interface EpisodesApi {
     @GET("episode/")
-    suspend fun getEpisodes(@Query("page") page: Int? = null): RickAndMortyResponse<Episode>
+    suspend fun getAllEpisodes(@Query("page") page: Int? = null): RickAndMortyResponse<Episode>
+
+    @GET("episode/{episodeIds}")
+    suspend fun getEpisodes(@Path("episodeIds") episodeIds: List<Int>): List<Episode>
 
     @GET("episode/{episodeId}")
     suspend fun getEpisode(@Path("episodeId") episodeId: Int): Episode

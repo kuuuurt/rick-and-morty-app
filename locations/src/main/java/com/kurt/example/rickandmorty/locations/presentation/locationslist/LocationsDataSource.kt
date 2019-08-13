@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.domain.entities.Location
-import com.kurt.example.rickandmorty.core.domain.usecases.GetLocations
+import com.kurt.example.rickandmorty.core.domain.usecases.GetAllLocations
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -19,19 +18,19 @@ import kotlinx.coroutines.launch
  * @since 08/13/2019
  */
 class LocationsDataSource(
-    private val getLocations: GetLocations,
+    private val getAllLocations: GetAllLocations,
     private val scope: CoroutineScope
 ) : PageKeyedDataSource<Int, Location>() {
 
     class Factory(
-        private val getLocations: GetLocations,
+        private val getAllLocations: GetAllLocations,
         private val scope: CoroutineScope
     ) : DataSource.Factory<Int, Location>() {
         val sourceLiveData = MutableLiveData<LocationsDataSource>()
         private lateinit var latestSource: LocationsDataSource
 
         override fun create(): DataSource<Int, Location> {
-            latestSource = LocationsDataSource(getLocations, scope)
+            latestSource = LocationsDataSource(getAllLocations, scope)
             sourceLiveData.postValue(latestSource)
             return latestSource
         }
@@ -48,7 +47,7 @@ class LocationsDataSource(
             _getLocationsState.postValue(UiState.Error(throwable))
         }) {
             _getLocationsState.postValue(UiState.Loading)
-            val locations = getLocations()
+            val locations = getAllLocations()
             callback.onResult(locations, null, 2)
             _getLocationsState.postValue(UiState.Complete)
             if (locations.isEmpty()) {
@@ -61,7 +60,7 @@ class LocationsDataSource(
         scope.launch(CoroutineExceptionHandler { _, throwable ->
             _getLocationsState.postValue(UiState.Error(throwable))
         }) {
-            callback.onResult(getLocations(params.key), params.key + 1)
+            callback.onResult(getAllLocations(params.key), params.key + 1)
             _getLocationsState.postValue(UiState.Complete)
         }
     }
@@ -70,7 +69,7 @@ class LocationsDataSource(
         scope.launch(CoroutineExceptionHandler { _, throwable ->
             _getLocationsState.postValue(UiState.Error(throwable))
         }) {
-            callback.onResult(getLocations(params.key), params.key - 1)
+            callback.onResult(getAllLocations(params.key), params.key - 1)
             _getLocationsState.postValue(UiState.Complete)
         }
     }

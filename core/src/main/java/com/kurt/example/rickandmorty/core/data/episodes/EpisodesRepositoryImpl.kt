@@ -1,6 +1,8 @@
 package com.kurt.example.rickandmorty.core.data.episodes
 
 import com.kurt.example.rickandmorty.core.domain.repositories.EpisodesRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -12,6 +14,15 @@ import javax.inject.Inject
 class EpisodesRepositoryImpl @Inject constructor(
     private val remoteSource: EpisodesRemoteSource
 ) : EpisodesRepository {
-    override suspend fun getEpisodes(page: Int?) = remoteSource.getEpisodes(page)
-    override suspend fun getEpisode(episodeId: Int) = remoteSource.getEpisode(episodeId)
+    override suspend fun getAllEpisodes(page: Int?) = withContext(Dispatchers.IO) {
+        remoteSource.getAllEpisodes(page)
+    }
+
+    override suspend fun getEpisodes(episodeIds: List<Int>) = withContext(Dispatchers.IO) {
+        remoteSource.getEpisodes(episodeIds)
+    }
+
+    override suspend fun getEpisode(episodeId: Int) = withContext(Dispatchers.IO) {
+        remoteSource.getEpisode(episodeId)
+    }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
-import com.kurt.example.rickandmorty.core.domain.usecases.GetLocations
+import com.kurt.example.rickandmorty.core.domain.usecases.GetAllLocations
 import javax.inject.Inject
 
 /**
@@ -15,21 +15,21 @@ import javax.inject.Inject
  * @since 07/31/2019
  */
 class LocationsListViewModel(
-    getLocations: GetLocations
+    getAllLocations: GetAllLocations
 ) : ViewModel() {
     class Factory @Inject constructor(
-        private val getLocations: GetLocations
+        private val getAllLocations: GetAllLocations
     ) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(LocationsListViewModel::class.java)) {
-                return LocationsListViewModel(getLocations) as T
+                return LocationsListViewModel(getAllLocations) as T
             }
             throw IllegalArgumentException("ViewModel not found")
         }
     }
 
-    val locationsDataSourceFactory = LocationsDataSource.Factory(getLocations, viewModelScope)
+    val locationsDataSourceFactory = LocationsDataSource.Factory(getAllLocations, viewModelScope)
     val locations = LivePagedListBuilder(locationsDataSourceFactory, 20).build()
     val getLocationsState = Transformations.switchMap(locationsDataSourceFactory.sourceLiveData) {
         it.getLocationsState

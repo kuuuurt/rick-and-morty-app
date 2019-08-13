@@ -1,6 +1,7 @@
 package com.kurt.example.rickandmorty.core.domain.repositories
 
 import com.kurt.example.rickandmorty.core.domain.entities.Character
+import com.kurt.example.rickandmorty.core.domain.entities.Episode
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
@@ -9,6 +10,7 @@ import com.kurt.example.rickandmorty.core.domain.entities.Character
  * @since 08/05/2019
  */
 interface CharactersRepository {
-    suspend fun getCharacters(page: Int? = null): List<Character>
+    suspend fun getAllCharacters(page: Int? = null): List<Character>
+    suspend fun getCharacters(characterIds: List<Int>): List<Character>
     suspend fun getCharacter(characterId: Int): Character
 }

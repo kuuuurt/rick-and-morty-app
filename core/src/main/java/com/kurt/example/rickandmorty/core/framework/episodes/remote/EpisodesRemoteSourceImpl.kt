@@ -4,8 +4,6 @@ import com.kurt.example.rickandmorty.core.data.episodes.EpisodesRemoteSource
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
 import com.kurt.example.rickandmorty.core.framework.BaseRemoteSource
 import retrofit2.HttpException
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
 /**
@@ -17,10 +15,11 @@ import javax.inject.Inject
 class EpisodesRemoteSourceImpl @Inject constructor() : BaseRemoteSource<EpisodesApi>(
     EpisodesApi::class.java
 ), EpisodesRemoteSource {
-    override suspend fun getEpisodes(page: Int?): List<Episode> = try {
-        api.getEpisodes(page).results
+    override suspend fun getAllEpisodes(page: Int?): List<Episode> = try {
+        api.getAllEpisodes(page).results
     } catch (exception: HttpException) {
         if (exception.code() == 404) listOf() else throw exception
     }
+    override suspend fun getEpisodes(episodeIds: List<Int>): List<Episode> = api.getEpisodes(episodeIds)
     override suspend fun getEpisode(episodeId: Int) = api.getEpisode(episodeId)
 }

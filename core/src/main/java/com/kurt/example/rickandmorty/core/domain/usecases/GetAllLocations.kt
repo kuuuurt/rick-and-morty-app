@@ -9,6 +9,6 @@ import javax.inject.Inject
  * @author Kurt Renzo Acosta
  * @since 08/13/2019
  */
-class GetLocations @Inject constructor(private val locationsRepository: LocationsRepository) {
-    suspend operator fun invoke(page: Int? = null) = locationsRepository.getLocations(page)
+class GetAllLocations @Inject constructor(private val locationsRepository: LocationsRepository) {
+    suspend operator fun invoke(page: Int? = null) = locationsRepository.getAllLocations(page)
 }

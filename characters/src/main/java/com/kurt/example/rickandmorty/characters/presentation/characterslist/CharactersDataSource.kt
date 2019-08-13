@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacters
+import com.kurt.example.rickandmorty.core.domain.usecases.GetAllCharacters
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -18,19 +18,19 @@ import kotlinx.coroutines.launch
  * @since 08/05/2019
  */
 class CharactersDataSource(
-    private val getCharacters: GetCharacters,
+    private val getAllCharacters: GetAllCharacters,
     private val scope: CoroutineScope
 ) : PageKeyedDataSource<Int, Character>() {
 
     class Factory(
-        private val getCharacters: GetCharacters,
+        private val getAllCharacters: GetAllCharacters,
         private val scope: CoroutineScope
     ) : DataSource.Factory<Int, Character>() {
         val sourceLiveData = MutableLiveData<CharactersDataSource>()
         private lateinit var latestSource: CharactersDataSource
 
         override fun create(): DataSource<Int, Character> {
-            latestSource = CharactersDataSource(getCharacters, scope)
+            latestSource = CharactersDataSource(getAllCharacters, scope)
             sourceLiveData.postValue(latestSource)
             return latestSource
         }
@@ -47,7 +47,7 @@ class CharactersDataSource(
             _getCharactersState.postValue(UiState.Error(throwable))
         }) {
             _getCharactersState.postValue(UiState.Loading)
-            val characters = getCharacters()
+            val characters = getAllCharacters()
             callback.onResult(characters, null, 2)
             _getCharactersState.postValue(UiState.Complete)
             if (characters.isEmpty()) {
@@ -60,7 +60,7 @@ class CharactersDataSource(
         scope.launch(CoroutineExceptionHandler { _, throwable ->
             _getCharactersState.postValue(UiState.Error(throwable))
         }) {
-            callback.onResult(getCharacters(params.key), params.key + 1)
+            callback.onResult(getAllCharacters(params.key), params.key + 1)
             _getCharactersState.postValue(UiState.Complete)
         }
     }
@@ -69,7 +69,7 @@ class CharactersDataSource(
         scope.launch(CoroutineExceptionHandler { _, throwable ->
             _getCharactersState.postValue(UiState.Error(throwable))
         }) {
-            callback.onResult(getCharacters(params.key), params.key - 1)
+            callback.onResult(getAllCharacters(params.key), params.key - 1)
             _getCharactersState.postValue(UiState.Complete)
         }
     }
