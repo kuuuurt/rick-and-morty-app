@@ -22,6 +22,8 @@ An app created to try out the Navigation Architecture Component
 
 The project is modularized in the following way.
 
+![Module Structure](module-structure.png)
+
 **app** contains the entry-point Activity for the app. It contains the MainActivity which houses the BottomNavigationView for navigating between the features
 
 **core** contains shared code throughout the app like models, use-cases, and base classes
