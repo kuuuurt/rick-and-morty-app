@@ -3,9 +3,9 @@ package com.kurt.example.rickandmorty.core.presentation.characters
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kurt.example.rickandmorty.core.R
 import com.kurt.example.rickandmorty.core.domain.entities.Character
-import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
 import com.marvel.example.core.presentation.BaseListAdapter
 
 /**
@@ -27,7 +27,7 @@ class CharactersListAdapter(val onClick: (Int) -> Unit) : BaseListAdapter<Charac
             val imgCharacter by lazy { findViewById<ImageView>(R.id.img_character) }
             val txtName by lazy { findViewById<TextView>(R.id.txt_name) }
 
-            GlideApp.with(context)
+            Glide.with(context)
                 .load(character.image)
                 .into(imgCharacter)
 

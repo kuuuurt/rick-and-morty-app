@@ -74,6 +74,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_air_date"
         app:spanCount="2"
+        android:visibility="invisible"
+        tools:visibility="visible"
         tools:listitem="@layout/list_item_character" />
 
     <com.kurt.example.rickandmorty.core.presentation.views.LoadingView

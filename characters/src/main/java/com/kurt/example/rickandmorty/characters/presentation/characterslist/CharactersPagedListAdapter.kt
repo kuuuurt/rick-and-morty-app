@@ -3,6 +3,8 @@ package com.kurt.example.rickandmorty.characters.presentation.characterslist
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kurt.example.rickandmorty.characters.R
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
@@ -28,9 +30,9 @@ class CharactersPagedListAdapter(val onClick: (Int) -> Unit) : BasePagedListAdap
                 val imgCharacter by lazy { findViewById<ImageView>(R.id.img_character) }
                 val txtName by lazy { findViewById<TextView>(R.id.txt_name) }
 
-//                GlideApp.with(context)
-//                    .load(character.image)
-//                    .into(imgCharacter)
+                Glide.with(context)
+                    .load(character.image)
+                    .into(imgCharacter)
 
                 txtName.text = character.name
 
