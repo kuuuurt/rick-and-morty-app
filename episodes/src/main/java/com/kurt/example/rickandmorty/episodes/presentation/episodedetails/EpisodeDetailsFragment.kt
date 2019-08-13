@@ -15,6 +15,7 @@ import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
 import com.kurt.example.rickandmorty.core.presentation.characters.CharactersListAdapter
+import com.kurt.example.rickandmorty.core.presentation.utils.navigateUriWithDefaultOptions
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import com.kurt.example.rickandmorty.episodes.R
@@ -52,7 +53,10 @@ class EpisodeDetailsFragment : BaseFragment<EpisodeDetailsViewModel>() {
 
     private val charactersAdapter by lazy {
         CharactersListAdapter {
-            findNavController().navigate(Uri.parse("rickandmorty://characterdetails/$it"))
+            findNavController().navigateUriWithDefaultOptions(
+                Uri.parse("rickandmorty://characterdetails/$it"),
+                R.id.episode_details_fragment
+            )
         }
     }
 

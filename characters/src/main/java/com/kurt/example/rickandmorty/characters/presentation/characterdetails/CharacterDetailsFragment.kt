@@ -8,8 +8,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +19,7 @@ import com.kurt.example.rickandmorty.core.presentation.UiState
 import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
 import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
 import com.kurt.example.rickandmorty.core.presentation.episodes.EpisodesListAdapter
+import com.kurt.example.rickandmorty.core.presentation.utils.navigateUriWithDefaultOptions
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import javax.inject.Inject
@@ -58,16 +57,9 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
 
     private val episodesAdapter by lazy {
         EpisodesListAdapter {
-            findNavController().navigate(
+            findNavController().navigateUriWithDefaultOptions(
                 Uri.parse("rickandmorty://episodedetails/$it"),
-                NavOptions.Builder()
-                    .setLaunchSingleTop(false)
-                    .setPopUpTo(R.id.character_details_fragment, false)
-                    .setEnterAnim(R.anim.nav_default_enter_anim)
-                    .setExitAnim(R.anim.nav_default_exit_anim)
-                    .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
-                    .setPopExitAnim(R.anim.nav_default_pop_exit_anim)
-                    .build()
+                R.id.character_details_fragment
             )
         }
     }
@@ -126,7 +118,8 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         viewModel.getEpisodesState.observe(this, Observer {
             recEpisodes.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
             loadingEpisodes.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
-            emptyEpisodes.visibility = if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
+            emptyEpisodes.visibility =
+                if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
         })
     }
 }
