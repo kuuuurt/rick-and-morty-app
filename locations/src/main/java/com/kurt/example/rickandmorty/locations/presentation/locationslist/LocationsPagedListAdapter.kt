@@ -12,7 +12,7 @@ import com.kurt.example.rickandmorty.locations.R
  * @author Kurt Renzo Acosta
  * @since 08/13/2019
  */
-class LocationsPagedListAdapter : BasePagedListAdapter<Location>(
+class LocationsPagedListAdapter(private val onClick: (Int) -> Unit) : BasePagedListAdapter<Location>(
     itemsSame = { old, new -> old.id == new.id }
 ) {
     override val itemLayout: Int = R.layout.list_item_location
@@ -29,6 +29,8 @@ class LocationsPagedListAdapter : BasePagedListAdapter<Location>(
                 txtName.text = location.name
                 txtDimension.text = location.dimension
                 txtType.text = location.type
+
+                setOnClickListener { onClick(location.id) }
             }
         }
     }

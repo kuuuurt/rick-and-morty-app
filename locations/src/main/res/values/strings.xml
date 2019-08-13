@@ -2,4 +2,5 @@
     <string name="app_name">Locations</string>
     <string name="empty_locations_title">No locations found</string>
     <string name="empty_locations_description">Please try again</string>
+    <string name="empty_location_title">Cannot find location</string>
 </resources>

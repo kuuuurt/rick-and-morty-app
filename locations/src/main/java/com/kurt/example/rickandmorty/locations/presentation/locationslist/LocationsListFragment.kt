@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
@@ -31,7 +32,12 @@ class LocationsListFragment : BaseFragment<LocationsListViewModel>() {
     private lateinit var loadingLocations: LoadingView
     private lateinit var emptyLocations: EmptyView
 
-    private val locationsAdapter by lazy { LocationsPagedListAdapter() }
+    private val locationsAdapter by lazy {
+        LocationsPagedListAdapter {
+            val directions = LocationsListFragmentDirections.actionViewLocationDetails(it)
+            findNavController().navigate(directions)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +60,8 @@ class LocationsListFragment : BaseFragment<LocationsListViewModel>() {
         viewModel.getLocationsState.observe(this, Observer {
             recLocations.visibility = if (it == UiState.Complete) View.VISIBLE else View.GONE
             loadingLocations.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
-            emptyLocations.visibility = if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
+            emptyLocations.visibility =
+                if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
         })
     }
 

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/window_padding"
+        android:layout_marginTop="@dimen/window_padding"
+        android:layout_marginEnd="@dimen/window_padding"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Location Name" />
+
+    <TextView
+        android:id="@+id/txt_dimension"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/window_padding"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintEnd_toStartOf="@id/txt_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_name"
+        tools:text="Dimension" />
+
+    <TextView
+        android:id="@+id/txt_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/window_padding"
+        android:gravity="end"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintBottom_toBottomOf="@id/txt_dimension"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txt_dimension"
+        tools:text="Type" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grp_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="txt_name,txt_dimension,txt_type"
+        tools:visibility="visible" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.LoadingView
+        android:id="@+id/loading_location"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/txt_type"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.EmptyView
+        android:id="@+id/empty_location"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:description="@string/try_again"
+        app:layout_constraintBottom_toBottomOf="@id/txt_type"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/empty_location_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec_characters"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/window_padding"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:padding="@dimen/window_padding"
+        android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_type"
+        app:spanCount="2"
+        tools:listitem="@layout/list_item_character"
+        tools:visibility="visible" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.LoadingView
+        android:id="@+id/loading_characters"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/rec_characters"
+        app:layout_constraintTop_toTopOf="@id/rec_characters"
+        tools:visibility="gone" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.EmptyView
+        android:id="@+id/empty_characters"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:description="@string/try_again"
+        app:layout_constraintBottom_toBottomOf="@id/rec_characters"
+        app:layout_constraintTop_toTopOf="@id/rec_characters"
+        app:title="@string/empty_characters_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
