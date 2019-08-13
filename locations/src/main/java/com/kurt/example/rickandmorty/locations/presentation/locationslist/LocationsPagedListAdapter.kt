@@ -23,8 +23,12 @@ class LocationsPagedListAdapter : BasePagedListAdapter<Location>(
         if (location != null) {
             holder.itemView.apply {
                 val txtName = findViewById<TextView>(R.id.txt_name)
+                val txtDimension = findViewById<TextView>(R.id.txt_dimension)
+                val txtType = findViewById<TextView>(R.id.txt_type)
 
                 txtName.text = location.name
+                txtDimension.text = location.dimension
+                txtType.text = location.type
             }
         }
     }
