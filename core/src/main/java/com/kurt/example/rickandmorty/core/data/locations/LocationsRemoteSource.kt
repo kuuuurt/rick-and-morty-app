@@ -9,6 +9,6 @@ import com.kurt.example.rickandmorty.core.domain.entities.Location
  * @since 08/13/2019
  */
 interface LocationsRemoteSource {
-    suspend fun getLocations(): List<Location>
+    suspend fun getLocations(page: Int?): List<Location>
     suspend fun getLocation(locationId: Int): Location
 }

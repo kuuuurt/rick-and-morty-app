@@ -1,7 +1,6 @@
 package com.kurt.example.rickandmorty.characters.di
 
 import com.kurt.example.rickandmorty.characters.presentation.characterslist.CharactersListFragment
-import com.kurt.example.rickandmorty.core.di.CharactersModule
 import com.kurt.example.rickandmorty.core.di.CoreComponent
 import dagger.Component
 

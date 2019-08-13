@@ -59,11 +59,7 @@ class EpisodesDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Episode>) {
         scope.launch(CoroutineExceptionHandler { _, throwable ->
-            if (throwable is HttpException && throwable.code() == 404) {
-                callback.onResult(listOf(), null)
-            } else {
-                _getEpisodesState.postValue(UiState.Error(throwable))
-            }
+            _getEpisodesState.postValue(UiState.Error(throwable))
         }) {
             callback.onResult(getEpisodes(params.key), params.key + 1)
             _getEpisodesState.postValue(UiState.Complete)
@@ -72,11 +68,7 @@ class EpisodesDataSource(
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Episode>) {
         scope.launch(CoroutineExceptionHandler { _, throwable ->
-            if (throwable is HttpException && throwable.code() == 404) {
-                callback.onResult(listOf(), params.key)
-            } else {
-                _getEpisodesState.postValue(UiState.Error(throwable))
-            }
+            _getEpisodesState.postValue(UiState.Error(throwable))
         }) {
             callback.onResult(getEpisodes(params.key), params.key - 1)
             _getEpisodesState.postValue(UiState.Complete)

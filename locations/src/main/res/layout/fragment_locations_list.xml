@@ -6,14 +6,34 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recLocations"
+        android:id="@+id/rec_locations"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/list_item_location" />
+        tools:listitem="@layout/list_item_location"
+        tools:visibility="visible" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.LoadingView
+        android:id="@+id/loading_locations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/rec_locations"
+        app:layout_constraintTop_toTopOf="@id/rec_locations"
+        tools:visibility="gone" />
+
+    <com.kurt.example.rickandmorty.core.presentation.views.EmptyView
+        android:id="@+id/empty_locations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:description="@string/empty_locations_description"
+        app:layout_constraintBottom_toBottomOf="@id/rec_locations"
+        app:layout_constraintTop_toTopOf="@id/rec_locations"
+        app:title="@string/empty_locations_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,6 +61,9 @@ dependencies {
     api "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
+    def okhttp3_version = "3.8.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+
     testImplementation 'junit:junit:4.12'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

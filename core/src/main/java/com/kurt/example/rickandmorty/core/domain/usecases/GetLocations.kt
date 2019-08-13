@@ -10,5 +10,5 @@ import javax.inject.Inject
  * @since 08/13/2019
  */
 class GetLocations @Inject constructor(private val locationsRepository: LocationsRepository) {
-    suspend operator fun invoke() = locationsRepository.getLocations()
+    suspend operator fun invoke(page: Int? = null) = locationsRepository.getLocations(page)
 }

@@ -5,7 +5,7 @@ data class Location(
     val dimension: String,
     val id: Int,
     val name: String,
-    val residents: List<Character>,
+    val residents: List<String>,
     val type: String,
     val url: String
 )

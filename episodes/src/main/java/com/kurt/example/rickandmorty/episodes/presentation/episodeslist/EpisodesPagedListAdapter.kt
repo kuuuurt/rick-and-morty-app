@@ -4,7 +4,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
 import com.kurt.example.rickandmorty.episodes.R
-import com.marvel.example.core.presentation.BasePagedListAdapter
+import com.kurt.example.rickandmorty.core.presentation.BasePagedListAdapter
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.

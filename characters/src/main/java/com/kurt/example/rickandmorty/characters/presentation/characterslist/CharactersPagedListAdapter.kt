@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.characters.R
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
-import com.marvel.example.core.presentation.BasePagedListAdapter
+import com.kurt.example.rickandmorty.core.presentation.BasePagedListAdapter
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
