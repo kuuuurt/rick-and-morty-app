@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Episodes</string>
-    <string name="empty_episodes_title">No episodes found</string>
-    <string name="empty_episodes_description">Please try again</string>
-</resources>

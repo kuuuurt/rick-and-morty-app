@@ -2,11 +2,23 @@ package com.kurt.example.rickandmorty.characters.presentation.characterdetails
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.characters.R
+import com.kurt.example.rickandmorty.characters.di.CharacterDetailsModule
+import com.kurt.example.rickandmorty.characters.di.DaggerCharacterDetailsComponent
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
+import com.kurt.example.rickandmorty.core.presentation.UiState
+import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
+import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
+import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
+import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
+import javax.inject.Inject
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
@@ -15,16 +27,73 @@ import com.kurt.example.rickandmorty.core.presentation.BaseFragment
  * @since 08/01/2019
  */
 class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
-    override val viewModel: CharacterDetailsViewModel by viewModels()
+    @Inject
+    lateinit var factory: CharacterDetailsViewModel.Factory
+
+    override val viewModel: CharacterDetailsViewModel by viewModels(factoryProducer = { factory })
     override val layout: Int = R.layout.fragment_character_details
 
-    val args: CharacterDetailsFragmentArgs by navArgs()
+    private val args: CharacterDetailsFragmentArgs by navArgs()
 
+    private lateinit var imgCharacter: ImageView
+    private lateinit var txtName: TextView
+    private lateinit var txtSpecies: TextView
+    private lateinit var txtStatus: TextView
+    private lateinit var txtType: TextView
+    private lateinit var txtLocation: TextView
+    private lateinit var txtOrigin: TextView
+
+    private lateinit var grpCharacter: Group
+    private lateinit var loadingCharacter: LoadingView
+    private lateinit var emptyCharacter: EmptyView
+
+    private lateinit var recEpisodes: RecyclerView
+    private lateinit var loadingEpisodes: LoadingView
+    private lateinit var emptyEpisodes: EmptyView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val txtCharacterId by lazy { view.findViewById<TextView>(R.id.txt_character_id) }
-        txtCharacterId.text = args.characterId.toString()
+        DaggerCharacterDetailsComponent
+            .builder()
+            .characterDetailsModule(CharacterDetailsModule(args.characterId))
+            .coreComponent(coreComponent())
+            .build()
+            .inject(this)
+
+        imgCharacter = view.findViewById(R.id.img_character)
+        txtName = view.findViewById(R.id.txt_name)
+        txtSpecies = view.findViewById(R.id.txt_species)
+        txtStatus = view.findViewById(R.id.txt_status)
+        txtType = view.findViewById(R.id.txt_type)
+        txtLocation = view.findViewById(R.id.txt_location)
+        txtOrigin = view.findViewById(R.id.txt_origin)
+
+        grpCharacter = view.findViewById(R.id.grp_character)
+        loadingCharacter = view.findViewById(R.id.loading_character)
+        emptyCharacter = view.findViewById(R.id.empty_character)
+
+        recEpisodes = view.findViewById(R.id.rec_episodes)
+        loadingEpisodes = view.findViewById(R.id.loading_episodes)
+        emptyEpisodes = view.findViewById(R.id.empty_episodes)
+
+        viewModel.character.observe(this, Observer {
+            GlideApp.with(requireContext())
+                .load(it.image)
+                .into(imgCharacter)
+
+            txtName.text = it.name
+            txtSpecies.text = it.species
+            txtStatus.text = it.status
+            txtType.text = it.type
+            txtLocation.text = it.location.name
+            txtOrigin.text = it.origin.name
+        })
+
+        viewModel.getCharacterState.observe(this, Observer {
+            grpCharacter.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
+            loadingCharacter.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
+            emptyCharacter.visibility = if (it is UiState.Error) View.VISIBLE else View.GONE
+        })
     }
 }

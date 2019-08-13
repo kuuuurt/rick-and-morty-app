@@ -2,4 +2,5 @@
 <resources>
     <dimen name="window_padding">16dp</dimen>
     <dimen name="card_padding">16dp</dimen>
+    <dimen name="cardview_margin">8dp</dimen>
 </resources>
