@@ -28,7 +28,7 @@ class EpisodesListFragment : BaseFragment<EpisodesListViewModel>() {
     override val layout: Int = R.layout.fragment_episodes_list
 
     private val episodesAdapter by lazy {
-        EpisodesPagedListAdapter {  }
+        EpisodesPagedListAdapter { }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

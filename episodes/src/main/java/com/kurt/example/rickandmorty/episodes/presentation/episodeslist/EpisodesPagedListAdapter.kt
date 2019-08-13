@@ -2,8 +2,8 @@ package com.kurt.example.rickandmorty.episodes.presentation.episodeslist
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.kurt.example.rickandmorty.core.R
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
-import com.kurt.example.rickandmorty.episodes.R
 import com.kurt.example.rickandmorty.core.presentation.BasePagedListAdapter
 
 /**

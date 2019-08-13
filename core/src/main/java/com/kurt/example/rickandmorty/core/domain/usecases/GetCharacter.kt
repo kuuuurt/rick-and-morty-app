@@ -12,6 +12,5 @@ import javax.inject.Inject
 class GetCharacter @Inject constructor(
     private val charactersRepository: CharactersRepository
 ) {
-    suspend operator fun invoke(locationId: Int) = charactersRepository.getCharacter(locationId)
-
+    suspend operator fun invoke(characterId: Int) = charactersRepository.getCharacter(characterId)
 }

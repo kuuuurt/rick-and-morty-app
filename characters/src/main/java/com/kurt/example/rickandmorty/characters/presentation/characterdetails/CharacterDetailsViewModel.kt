@@ -1,10 +1,15 @@
 package com.kurt.example.rickandmorty.characters.presentation.characterdetails
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.kurt.example.rickandmorty.core.domain.entities.Character
+import com.kurt.example.rickandmorty.core.domain.entities.Episode
 import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacter
+import com.kurt.example.rickandmorty.core.domain.usecases.GetEpisode
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 /**
@@ -15,16 +20,18 @@ import kotlinx.coroutines.launch
  */
 class CharacterDetailsViewModel(
     private val characterId: Int,
-    private val getCharacter: GetCharacter
+    private val getCharacter: GetCharacter,
+    private val getEpisode: GetEpisode
 ) : ViewModel() {
     class Factory(
         private val characterId: Int,
-        private val getCharacter: GetCharacter
+        private val getCharacter: GetCharacter,
+        private val getEpisode: GetEpisode
     ) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(CharacterDetailsViewModel::class.java)) {
-                return CharacterDetailsViewModel(characterId, getCharacter) as T
+                return CharacterDetailsViewModel(characterId, getCharacter, getEpisode) as T
             }
             throw IllegalArgumentException("ViewModel not found.")
         }
@@ -33,8 +40,14 @@ class CharacterDetailsViewModel(
     private val _character = MutableLiveData<Character>()
     val character: LiveData<Character> = _character
 
+    private val _episodes = MutableLiveData<List<Episode>>()
+    val episodes: LiveData<List<Episode>> = _episodes
+
     private val _getCharacterState = MutableLiveData<UiState>()
     val getCharacterState: LiveData<UiState> = _getCharacterState
+
+    private val _getEpisodesState = MutableLiveData<UiState>()
+    val getEpisodesState: LiveData<UiState> = _getEpisodesState
 
     init {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
@@ -44,6 +57,20 @@ class CharacterDetailsViewModel(
             val character = getCharacter(characterId)
             _character.postValue(character)
             _getCharacterState.postValue(UiState.Complete)
+
+            launch(CoroutineExceptionHandler { _, throwable ->
+                _getEpisodesState.postValue(UiState.Error(throwable))
+            }) {
+                _getEpisodesState.postValue(UiState.Loading)
+
+                val episodes = character.episodes
+                    .map { it.split("/").last().toInt() }
+                    .map { async { getEpisode(it) } }
+                    .map { it.await() }
+
+                _episodes.postValue(episodes)
+                _getEpisodesState.postValue(UiState.Complete)
+            }
         }
     }
 }

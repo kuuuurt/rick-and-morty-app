@@ -16,6 +16,7 @@ import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
 import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
+import com.kurt.example.rickandmorty.core.presentation.episodes.EpisodesListAdapter
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import javax.inject.Inject
@@ -51,6 +52,8 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
     private lateinit var loadingEpisodes: LoadingView
     private lateinit var emptyEpisodes: EmptyView
 
+    private val episodesAdapter by lazy { EpisodesListAdapter {} }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -77,6 +80,8 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         loadingEpisodes = view.findViewById(R.id.loading_episodes)
         emptyEpisodes = view.findViewById(R.id.empty_episodes)
 
+        recEpisodes.adapter = episodesAdapter
+
         viewModel.character.observe(this, Observer {
             GlideApp.with(requireContext())
                 .load(it.image)
@@ -90,10 +95,20 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
             txtOrigin.text = it.origin.name
         })
 
+        viewModel.episodes.observe(this, Observer {
+            episodesAdapter.submitList(it)
+        })
+
         viewModel.getCharacterState.observe(this, Observer {
             grpCharacter.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
             loadingCharacter.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
             emptyCharacter.visibility = if (it is UiState.Error) View.VISIBLE else View.GONE
+        })
+
+        viewModel.getEpisodesState.observe(this, Observer {
+            recEpisodes.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
+            loadingEpisodes.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
+            emptyEpisodes.visibility = if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
         })
     }
 }

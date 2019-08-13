@@ -2,6 +2,7 @@ package com.kurt.example.rickandmorty.characters.di
 
 import com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsViewModel
 import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacter
+import com.kurt.example.rickandmorty.core.domain.usecases.GetEpisode
 import dagger.Module
 import dagger.Provides
 
@@ -14,6 +15,6 @@ import dagger.Provides
 @Module
 class CharacterDetailsModule(private val characterId: Int) {
     @Provides
-    fun provideCharacterDetailsViewModelFactory(getCharacter: GetCharacter) =
-        CharacterDetailsViewModel.Factory(characterId, getCharacter)
+    fun provideCharacterDetailsViewModelFactory(getCharacter: GetCharacter, getEpisode: GetEpisode) =
+        CharacterDetailsViewModel.Factory(characterId, getCharacter, getEpisode)
 }
