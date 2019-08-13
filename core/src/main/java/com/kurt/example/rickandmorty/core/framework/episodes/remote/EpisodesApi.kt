@@ -1,6 +1,6 @@
 package com.kurt.example.rickandmorty.core.framework.episodes.remote
 
-import com.kurt.example.rickandmorty.core.data.models.RickAndMortyResponse
+import com.kurt.example.rickandmorty.core.framework.models.RickAndMortyResponse
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
 import retrofit2.http.GET
 import retrofit2.http.Path
