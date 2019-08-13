@@ -19,6 +19,8 @@
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/window_padding"
         android:scaleType="centerCrop"
+        android:transitionName="imgCharacter"
+        app:layout_collapseMode="parallax"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/gln_middle"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +98,6 @@
         android:id="@+id/grp_character"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         app:constraint_referenced_ids="img_character,txt_name,txt_species,txt_status,txt_type,txt_location,txt_location,txt_origin"
         tools:visibility="visible" />
 

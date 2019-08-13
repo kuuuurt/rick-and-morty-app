@@ -2,15 +2,20 @@ package com.kurt.example.rickandmorty.characters.presentation.characterdetails
 
 import android.net.Uri
 import android.os.Bundle
+import android.transition.TransitionInflater
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kurt.example.rickandmorty.characters.R
 import com.kurt.example.rickandmorty.characters.di.CharacterDetailsModule
 import com.kurt.example.rickandmorty.characters.di.DaggerCharacterDetailsComponent
@@ -64,6 +69,12 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -92,6 +103,12 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
 
         recEpisodes.adapter = episodesAdapter
 
+        Glide.with(requireContext())
+            .load(args.imgUrl)
+            .into(imgCharacter)
+
+        ViewCompat.setTransitionName(imgCharacter, "imgCharacter")
+
         viewModel.character.observe(this, Observer {
             GlideApp.with(requireContext())
                 .load(it.image)
@@ -110,9 +127,9 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         })
 
         viewModel.getCharacterState.observe(this, Observer {
-            grpCharacter.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
-            loadingCharacter.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
-            emptyCharacter.visibility = if (it is UiState.Error) View.VISIBLE else View.GONE
+//            grpCharacter.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
+//            loadingCharacter.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
+//            emptyCharacter.visibility = if (it is UiState.Error) View.VISIBLE else View.GONE
         })
 
         viewModel.getEpisodesState.observe(this, Observer {

@@ -2,13 +2,14 @@ package com.kurt.example.rickandmorty.characters.presentation.characterslist
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kurt.example.rickandmorty.characters.R
 import com.kurt.example.rickandmorty.core.domain.entities.Character
-import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
 import com.kurt.example.rickandmorty.core.presentation.BasePagedListAdapter
+import com.kurt.example.rickandmorty.core.presentation.utils.createDefaultNavOptions
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
@@ -16,7 +17,7 @@ import com.kurt.example.rickandmorty.core.presentation.BasePagedListAdapter
  * @author Kurt Renzo Acosta
  * @since 08/05/2019
  */
-class CharactersPagedListAdapter(val onClick: (Int) -> Unit) : BasePagedListAdapter<Character>(
+class CharactersPagedListAdapter : BasePagedListAdapter<Character>(
     itemsSame = { old, new -> old.id == new.id },
     contentsSame = { old, new -> old == new }
 ) {
@@ -36,7 +37,13 @@ class CharactersPagedListAdapter(val onClick: (Int) -> Unit) : BasePagedListAdap
 
                 txtName.text = character.name
 
-                setOnClickListener { onClick(character.id) }
+                setOnClickListener {
+                    val extras = FragmentNavigatorExtras(
+                        imgCharacter to "imgCharacter"
+                    )
+                    val direction = CharactersListFragmentDirections.actionViewCharacterDetails(character.id, character.image)
+                    findNavController().navigate(direction, extras)
+                }
             }
         }
     }

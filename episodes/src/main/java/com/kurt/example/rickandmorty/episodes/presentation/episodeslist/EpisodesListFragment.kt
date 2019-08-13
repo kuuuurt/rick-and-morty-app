@@ -29,10 +29,7 @@ class EpisodesListFragment : BaseFragment<EpisodesListViewModel>() {
     override val layout: Int = R.layout.fragment_episodes_list
 
     private val episodesAdapter by lazy {
-        EpisodesPagedListAdapter {
-            val direction = EpisodesListFragmentDirections.actionViewEpisodeDetails(it)
-            findNavController().navigate(direction)
-        }
+        EpisodesPagedListAdapter()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

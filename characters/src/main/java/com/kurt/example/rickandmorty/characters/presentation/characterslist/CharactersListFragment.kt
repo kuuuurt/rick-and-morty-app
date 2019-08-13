@@ -29,10 +29,7 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
     override val viewModel: CharactersListViewModel by viewModels(factoryProducer = { factory })
     override val layout: Int = R.layout.fragment_characters_list
 
-    private val charactersAdapter by lazy { CharactersPagedListAdapter {
-        val direction = CharactersListFragmentDirections.actionViewCharacterDetails(it)
-        findNavController().navigate(direction)
-    } }
+    private val charactersAdapter by lazy { CharactersPagedListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
