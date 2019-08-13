@@ -9,5 +9,25 @@
     <fragment
         android:id="@+id/episodes_list_fragment"
         android:name="com.kurt.example.rickandmorty.episodes.presentation.episodeslist.EpisodesListFragment"
-        android:label="Episodes" />
+        android:label="Episodes"
+        tools:layout="@layout/fragment_episodes_list">
+        <action
+            android:id="@+id/action_view_episode_details"
+            app:destination="@id/episode_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/episodes_list_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episode_details_fragment"
+        android:name="com.kurt.example.rickandmorty.episodes.presentation.episodedetails.EpisodeDetailsFragment"
+        android:label="Episode Details"
+        tools:layout="@layout/fragment_episode_details">
+        <argument
+            android:name="episode_id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

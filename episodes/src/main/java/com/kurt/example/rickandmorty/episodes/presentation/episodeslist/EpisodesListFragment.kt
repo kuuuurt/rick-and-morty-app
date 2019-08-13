@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
@@ -28,7 +29,10 @@ class EpisodesListFragment : BaseFragment<EpisodesListViewModel>() {
     override val layout: Int = R.layout.fragment_episodes_list
 
     private val episodesAdapter by lazy {
-        EpisodesPagedListAdapter { }
+        EpisodesPagedListAdapter {
+            val direction = EpisodesListFragmentDirections.actionViewEpisodeDetails(it)
+            findNavController().navigate(direction)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +58,8 @@ class EpisodesListFragment : BaseFragment<EpisodesListViewModel>() {
         viewModel.getEpisodesState.observe(this, Observer {
             recEpisodes.visibility = if (it == UiState.Complete) View.VISIBLE else View.GONE
             loadingEpisodes.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
-            emptyEpisodes.visibility = if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
+            emptyEpisodes.visibility =
+                if (it is UiState.Error || it == UiState.Empty) View.VISIBLE else View.GONE
         })
     }
 }

@@ -1,6 +1,8 @@
 package com.kurt.example.rickandmorty.core.data.characters
 
 import com.kurt.example.rickandmorty.core.domain.repositories.CharactersRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -12,6 +14,9 @@ import javax.inject.Inject
 class CharactersRepositoryImpl @Inject constructor(
     private val remoteSource: CharactersRemoteSource
 ) : CharactersRepository {
-    override suspend fun getCharacters(page: Int?)= remoteSource.getCharacters(page)
-    override suspend fun getCharacter(characterId: Int) = remoteSource.getCharacter(characterId)
+    override suspend fun getCharacters(page: Int?) =
+        withContext(Dispatchers.IO) { remoteSource.getCharacters(page) }
+
+    override suspend fun getCharacter(characterId: Int) =
+        withContext(Dispatchers.IO) { remoteSource.getCharacter(characterId) }
 }

@@ -28,9 +28,9 @@ class CharactersPagedListAdapter(val onClick: (Int) -> Unit) : BasePagedListAdap
                 val imgCharacter by lazy { findViewById<ImageView>(R.id.img_character) }
                 val txtName by lazy { findViewById<TextView>(R.id.txt_name) }
 
-                GlideApp.with(context)
-                    .load(character.image)
-                    .into(imgCharacter)
+//                GlideApp.with(context)
+//                    .load(character.image)
+//                    .into(imgCharacter)
 
                 txtName.text = character.name
 

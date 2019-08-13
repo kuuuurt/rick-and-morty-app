@@ -1,6 +1,7 @@
 package com.kurt.example.rickandmorty
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -29,6 +30,13 @@ class MainActivity : AppCompatActivity() {
 
         btmNavMain.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.characters_list_fragment, R.id.locations_list_fragment, R.id.episodes_list_fragment -> btmNavMain.visibility = View.VISIBLE
+                else -> btmNavMain.visibility = View.GONE
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

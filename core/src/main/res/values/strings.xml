@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">core</string>
 
+
+    <string name="empty_characters_title">No characters found</string>
+    <string name="empty_characters_description">Please try again</string>
+
     <string name="empty_episodes_title">No episodes found</string>
     <string name="empty_episodes_description">Please try again</string>
+
     <string name="try_again">Please try again</string>
 </resources>
