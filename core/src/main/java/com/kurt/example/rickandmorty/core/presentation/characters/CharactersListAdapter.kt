@@ -1,4 +1,4 @@
-package com.kurt.example.rickandmorty.charactersapi
+package com.kurt.example.rickandmorty.core.presentation.characters
 
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,7 +8,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragmentArgs
-import com.kurt.example.rickandmorty.charactersapi.R
+import com.kurt.example.rickandmorty.core.NavMainDirections
+import com.kurt.example.rickandmorty.core.R
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.presentation.utils.createDefaultNavOptions
 import com.marvel.example.core.presentation.BaseListAdapter
@@ -45,16 +46,9 @@ class CharactersListAdapter : BaseListAdapter<Character>(
                     imgCharacter to imgCharacter.transitionName,
                     txtName to txtName.transitionName
                 )
-                val characterDetailsArgs = CharacterDetailsFragmentArgs(
-                    character.id, character.image, character.name
-                )
+                val directions = NavMainDirections.actionViewCharacterDetails(character.id, character.image, character.name)
                 val navController = findNavController()
-                navController.navigate(
-                    R.id.character_details_fragment,
-                    characterDetailsArgs.toBundle(),
-                    createDefaultNavOptions(navController.currentDestination?.id ?: -1),
-                    extras
-                )
+                navController.navigate(directions, extras)
             }
         }
     }

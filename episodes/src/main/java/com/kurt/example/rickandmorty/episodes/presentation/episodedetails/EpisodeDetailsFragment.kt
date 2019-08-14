@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
-import com.kurt.example.rickandmorty.charactersapi.CharactersListAdapter
+import com.kurt.example.rickandmorty.core.presentation.characters.CharactersListAdapter
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import com.kurt.example.rickandmorty.episodes.R
 import com.kurt.example.rickandmorty.episodes.di.DaggerEpisodeDetailsComponent
-import com.kurt.example.rickandmorty.episodes.di.DaggerEpisodesListComponent
 import com.kurt.example.rickandmorty.episodes.di.EpisodeDetailsModule
 import javax.inject.Inject
 

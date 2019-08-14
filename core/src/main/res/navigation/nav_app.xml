@@ -4,6 +4,21 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/characters_list_fragment">
 
+    <action
+        android:id="@+id/action_view_character_details"
+        app:destination="@+id/character_details_fragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action
+        android:id="@+id/action_view_episode_details"
+        app:destination="@id/episode_details_fragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     <fragment
         android:id="@+id/characters_list_fragment"
@@ -31,17 +46,6 @@
         <argument
             android:name="character_name"
             app:argType="string" />
-        <deepLink
-            android:id="@+id/deepLink"
-            app:uri="rickandmorty://characterdetails/{character_id}/{img_url}/{character_name}" />
-        <action
-            android:id="@+id/action_view_episode_details_from_character"
-            app:destination="@id/character_details_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/character_details_fragment" />
     </fragment>
 
     <fragment
@@ -72,16 +76,6 @@
         <argument
             android:name="type"
             app:argType="string" />
-
-        <action
-            android:id="@+id/action_view_character_details_from_location"
-            app:destination="@id/character_details_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/location_details_fragment" />
-
     </fragment>
 
     <fragment
@@ -111,16 +105,6 @@
         <argument
             android:name="episode"
             app:argType="string" />
-        <deepLink app:uri="rickandmorty://episodedetails/{episode_id}/{name}/{episode}" />
-
-        <action
-            android:id="@+id/action_view_character_details_from_episode"
-            app:destination="@id/character_details_fragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/episode_details_fragment" />
     </fragment>
 
 </navigation>

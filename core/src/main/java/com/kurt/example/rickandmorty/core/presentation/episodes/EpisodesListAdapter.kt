@@ -1,6 +1,7 @@
 package com.kurt.example.rickandmorty.core.presentation.episodes
 
 import android.net.Uri
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.navigation.Navigation.findNavController
@@ -8,9 +9,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragmentArgs
+import com.kurt.example.rickandmorty.core.NavMainDirections
 import com.kurt.example.rickandmorty.core.R
 import com.kurt.example.rickandmorty.core.domain.entities.Episode
+import com.kurt.example.rickandmorty.core.presentation.utils.createDefaultNavOptions
 import com.kurt.example.rickandmorty.core.presentation.utils.navigateUriWithDefaultOptions
+import com.kurt.example.rickandmorty.episodes.presentation.episodedetails.EpisodeDetailsFragmentArgs
 import com.marvel.example.core.presentation.BaseListAdapter
 
 /**
@@ -42,10 +47,9 @@ class EpisodesListAdapter : BaseListAdapter<Episode>(
                     txtTitle to txtTitle.transitionName,
                     txtEpisode to txtEpisode.transitionName
                 )
-                findNavController().navigateUriWithDefaultOptions(
-                    Uri.parse("rickandmorty://episodedetails/${episode.id}/${episode.name}/${episode.episode}"),
-                    extras
-                )
+                val directions = NavMainDirections.actionViewEpisodeDetails(episode.id, episode.name, episode.episode)
+                val navController = findNavController()
+                navController.navigate(directions, extras)
             }
         }
     }

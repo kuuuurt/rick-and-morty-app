@@ -27,7 +27,6 @@ android {
 
 dependencies {
     implementation project(":core")
-    implementation project(":charactersapi")
 
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
