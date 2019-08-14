@@ -1,6 +1,5 @@
-package com.kurt.example.rickandmorty.core.presentation.characters
+package com.kurt.example.rickandmorty.charactersapi
 
-import android.net.Uri
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.ViewCompat
@@ -8,9 +7,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.kurt.example.rickandmorty.core.R
+import com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragmentArgs
+import com.kurt.example.rickandmorty.charactersapi.R
 import com.kurt.example.rickandmorty.core.domain.entities.Character
-import com.kurt.example.rickandmorty.core.presentation.utils.navigateUriWithDefaultOptions
+import com.kurt.example.rickandmorty.core.presentation.utils.createDefaultNavOptions
 import com.marvel.example.core.presentation.BaseListAdapter
 
 /**
@@ -45,8 +45,14 @@ class CharactersListAdapter : BaseListAdapter<Character>(
                     imgCharacter to imgCharacter.transitionName,
                     txtName to txtName.transitionName
                 )
-                findNavController().navigateUriWithDefaultOptions(
-                    Uri.parse("rickandmorty://characterdetails/${character.id}/${character.image.replace("/", "\\")}/${character.name}"),
+                val characterDetailsArgs = CharacterDetailsFragmentArgs(
+                    character.id, character.image, character.name
+                )
+                val navController = findNavController()
+                navController.navigate(
+                    R.id.character_details_fragment,
+                    characterDetailsArgs.toBundle(),
+                    createDefaultNavOptions(navController.currentDestination?.id ?: -1),
                     extras
                 )
             }

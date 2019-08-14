@@ -1,6 +1,5 @@
 package com.kurt.example.rickandmorty.episodes.presentation.episodedetails
 
-import android.net.Uri
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.View
@@ -8,23 +7,18 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDeepLinkBuilder
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
-import com.kurt.example.rickandmorty.core.presentation.characters.CharactersListAdapter
-import com.kurt.example.rickandmorty.core.presentation.utils.navigateUriWithDefaultOptions
+import com.kurt.example.rickandmorty.charactersapi.CharactersListAdapter
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import com.kurt.example.rickandmorty.episodes.R
 import com.kurt.example.rickandmorty.episodes.di.DaggerEpisodeDetailsComponent
 import com.kurt.example.rickandmorty.episodes.di.DaggerEpisodesListComponent
 import com.kurt.example.rickandmorty.episodes.di.EpisodeDetailsModule
-import java.text.DateFormat
-import java.util.*
 import javax.inject.Inject
 
 /**
