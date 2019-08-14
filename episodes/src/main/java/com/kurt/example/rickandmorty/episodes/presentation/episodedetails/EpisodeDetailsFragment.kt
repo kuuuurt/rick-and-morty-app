@@ -2,6 +2,7 @@ package com.kurt.example.rickandmorty.episodes.presentation.episodedetails
 
 import android.net.Uri
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
@@ -57,6 +58,8 @@ class EpisodeDetailsFragment : BaseFragment<EpisodeDetailsViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
         DaggerEpisodeDetailsComponent
             .builder()
@@ -69,7 +72,6 @@ class EpisodeDetailsFragment : BaseFragment<EpisodeDetailsViewModel>() {
         txtEpisode = view.findViewById(R.id.txt_episode)
         txtAirDate = view.findViewById(R.id.txt_air_date)
 
-        grpEpisode = view.findViewById(R.id.grp_episode)
         loadingEpisode = view.findViewById(R.id.loading_episode)
         emptyEpisode = view.findViewById(R.id.empty_episode)
 
@@ -78,6 +80,9 @@ class EpisodeDetailsFragment : BaseFragment<EpisodeDetailsViewModel>() {
         emptyCharacters = view.findViewById(R.id.empty_characters)
 
         recCharacters.adapter = charactersAdapter
+
+        txtTitle.text = args.name
+        txtEpisode.text = args.episode
 
         viewModel.episode.observe(this, Observer {
             txtTitle.text = it.name
@@ -90,7 +95,7 @@ class EpisodeDetailsFragment : BaseFragment<EpisodeDetailsViewModel>() {
         })
 
         viewModel.getEpisodeState.observe(this, Observer {
-            grpEpisode.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
+            txtAirDate.visibility = if (it == UiState.Complete) View.VISIBLE else View.INVISIBLE
             loadingEpisode.visibility = if (it == UiState.Loading) View.VISIBLE else View.GONE
             emptyEpisode.visibility = if (it is UiState.Error) View.VISIBLE else View.GONE
         })

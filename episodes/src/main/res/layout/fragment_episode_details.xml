@@ -13,6 +13,7 @@
         android:layout_marginStart="@dimen/window_padding"
         android:layout_marginTop="@dimen/window_padding"
         android:layout_marginEnd="@dimen/window_padding"
+        android:transitionName="txtTitle"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Episode Title" />
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/window_padding"
         android:layout_marginEnd="@dimen/window_padding"
+        android:transitionName="txtEpisode"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintTop_toBottomOf="@id/txt_title"
         tools:text="S01E01" />
@@ -37,19 +39,12 @@
         app:layout_constraintTop_toBottomOf="@id/txt_episode"
         tools:text="January 1, 1990" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/grp_episode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="txt_title,txt_episode,txt_air_date" />
-
     <com.kurt.example.rickandmorty.core.presentation.views.LoadingView
         android:id="@+id/loading_episode"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/txt_air_date"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_episode"
         tools:visibility="gone" />
 
     <com.kurt.example.rickandmorty.core.presentation.views.EmptyView
@@ -59,7 +54,7 @@
         android:visibility="gone"
         app:description="@string/try_again"
         app:layout_constraintBottom_toBottomOf="@id/txt_air_date"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_episode"
         app:title="@string/empty_episode_title" />
 
     <androidx.recyclerview.widget.RecyclerView

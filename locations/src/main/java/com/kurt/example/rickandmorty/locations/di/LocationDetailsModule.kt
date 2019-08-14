@@ -1,6 +1,6 @@
 package com.kurt.example.rickandmorty.locations.di
 
-import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacter
+import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacters
 import com.kurt.example.rickandmorty.core.domain.usecases.GetLocation
 import com.kurt.example.rickandmorty.locations.presentation.locationdetails.LocationDetailsViewModel
 import dagger.Module
@@ -17,7 +17,7 @@ class LocationDetailsModule(private val locationId: Int) {
     @Provides
     fun providesLocationDetailsViewModelFactory(
         getLocation: GetLocation,
-        getCharacter: GetCharacter
-    ) = LocationDetailsViewModel.Factory(locationId, getLocation, getCharacter)
+        getCharacters: GetCharacters
+    ) = LocationDetailsViewModel.Factory(locationId, getLocation, getCharacters)
 
 }

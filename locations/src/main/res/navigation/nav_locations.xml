@@ -9,7 +9,8 @@
     <fragment
         android:id="@+id/locations_list_fragment"
         android:name="com.kurt.example.rickandmorty.locations.presentation.locationslist.LocationsListFragment"
-        android:label="Locations">
+        android:label="Locations"
+        tools:layout="@layout/fragment_locations_list">
         <action
             android:id="@+id/action_view_location_details"
             app:destination="@id/location_details_fragment"
@@ -21,9 +22,19 @@
     <fragment
         android:id="@+id/location_details_fragment"
         android:name="com.kurt.example.rickandmorty.locations.presentation.locationdetails.LocationDetailsFragment"
-        android:label="Location Details">
+        android:label="Location Details"
+        tools:layout="@layout/fragment_location_details">
         <argument
             android:name="location_id"
             app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="dimension"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
     </fragment>
 </navigation>

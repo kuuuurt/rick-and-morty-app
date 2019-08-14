@@ -1,8 +1,10 @@
 package com.kurt.example.rickandmorty.episodes.presentation.episodeslist
 
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.R
@@ -33,8 +35,14 @@ class EpisodesPagedListAdapter : BasePagedListAdapter<Episode>(
                 txtEpisode.text = episode.episode
 
                 setOnClickListener {
-                    val direction = EpisodesListFragmentDirections.actionViewEpisodeDetails(episode.id)
-                    findNavController().navigate(direction)
+                    ViewCompat.setTransitionName(txtTitle, "txtTitle")
+                    ViewCompat.setTransitionName(txtEpisode, "txtEpisode")
+                    val extras = FragmentNavigatorExtras(
+                        txtTitle to txtTitle.transitionName,
+                        txtEpisode to txtEpisode.transitionName
+                    )
+                    val direction = EpisodesListFragmentDirections.actionViewEpisodeDetails(episode.id, episode.name, episode.episode)
+                    findNavController().navigate(direction, extras)
                 }
             }
         }

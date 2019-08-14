@@ -1,6 +1,9 @@
 package com.kurt.example.rickandmorty.locations.presentation.locationslist
 
 import android.widget.TextView
+import androidx.core.view.ViewCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.domain.entities.Location
 import com.kurt.example.rickandmorty.core.presentation.BasePagedListAdapter
@@ -12,7 +15,7 @@ import com.kurt.example.rickandmorty.locations.R
  * @author Kurt Renzo Acosta
  * @since 08/13/2019
  */
-class LocationsPagedListAdapter(private val onClick: (Int) -> Unit) : BasePagedListAdapter<Location>(
+class LocationsPagedListAdapter : BasePagedListAdapter<Location>(
     itemsSame = { old, new -> old.id == new.id }
 ) {
     override val itemLayout: Int = R.layout.list_item_location
@@ -30,7 +33,23 @@ class LocationsPagedListAdapter(private val onClick: (Int) -> Unit) : BasePagedL
                 txtDimension.text = location.dimension
                 txtType.text = location.type
 
-                setOnClickListener { onClick(location.id) }
+                setOnClickListener {
+                    ViewCompat.setTransitionName(txtName, "txtName")
+                    ViewCompat.setTransitionName(txtDimension, "txtDimension")
+                    ViewCompat.setTransitionName(txtType, "txtType")
+                    val extras = FragmentNavigatorExtras(
+                        txtName to txtName.transitionName,
+                        txtDimension to txtDimension.transitionName,
+                        txtType to txtType.transitionName
+                    )
+                    val directions = LocationsListFragmentDirections.actionViewLocationDetails(
+                        location.id,
+                        location.name,
+                        location.dimension,
+                        location.type
+                    )
+                    findNavController().navigate(directions, extras)
+                }
             }
         }
     }

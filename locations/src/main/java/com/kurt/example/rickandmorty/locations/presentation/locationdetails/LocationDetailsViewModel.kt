@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.kurt.example.rickandmorty.core.domain.entities.Character
 import com.kurt.example.rickandmorty.core.domain.entities.Location
 import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacter
+import com.kurt.example.rickandmorty.core.domain.usecases.GetCharacters
 import com.kurt.example.rickandmorty.core.domain.usecases.GetLocation
 import com.kurt.example.rickandmorty.core.presentation.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -20,17 +21,17 @@ import kotlinx.coroutines.launch
 class LocationDetailsViewModel(
     private val locationId: Int,
     private val getLocation: GetLocation,
-    private val getCharacter: GetCharacter
+    private val getCharacters: GetCharacters
 ) : ViewModel() {
     class Factory(
         private val locationId: Int,
         private val getLocation: GetLocation,
-        private val getCharacter: GetCharacter
+        private val getCharacters: GetCharacters
     ) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(LocationDetailsViewModel::class.java)) {
-                return LocationDetailsViewModel(locationId, getLocation, getCharacter) as T
+                return LocationDetailsViewModel(locationId, getLocation, getCharacters) as T
             }
             throw IllegalArgumentException("ViewModel not found.")
         }
@@ -38,9 +39,6 @@ class LocationDetailsViewModel(
 
     private val _location = MutableLiveData<Location>()
     val location: LiveData<Location> = _location
-
-    private val _getLocationState = MutableLiveData<UiState>()
-    val getLocationState: LiveData<UiState> = _getLocationState
 
     private val _characters = MutableLiveData<List<Character>>()
     val characters: LiveData<List<Character>> = _characters
@@ -50,26 +48,17 @@ class LocationDetailsViewModel(
 
     init {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            _getLocationState.postValue(UiState.Error(throwable))
+            _getCharactersState.postValue(UiState.Error(throwable))
         }) {
-            _getLocationState.postValue(UiState.Loading)
+            _getCharactersState.postValue(UiState.Loading)
             val location = getLocation(locationId)
+            val characterIds = location.residents
+                .map { it.split("/").last().toInt() }
+
+            val characters = getCharacters(characterIds)
             _location.postValue(location)
-            _getLocationState.postValue(UiState.Complete)
-
-            launch(CoroutineExceptionHandler { _, throwable ->
-                _getCharactersState.postValue(UiState.Error(throwable))
-            }) {
-                _getCharactersState.postValue(UiState.Loading)
-                val deferredCharacters = location.residents
-                    .map { it.split("/").last().toInt() }
-                    .map { async { getCharacter(it) } }
-
-                val characters = deferredCharacters.awaitAll()
-                _characters.postValue(characters)
-                _getCharactersState.postValue(UiState.Complete)
-            }
-
+            _characters.postValue(characters)
+            _getCharactersState.postValue(UiState.Complete)
         }
     }
 }

@@ -2,6 +2,7 @@ package com.kurt.example.rickandmorty.characters.presentation.characterslist
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -33,6 +34,9 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         DaggerCharactersListComponent
             .builder()

@@ -32,12 +32,7 @@ class LocationsListFragment : BaseFragment<LocationsListViewModel>() {
     private lateinit var loadingLocations: LoadingView
     private lateinit var emptyLocations: EmptyView
 
-    private val locationsAdapter by lazy {
-        LocationsPagedListAdapter {
-            val directions = LocationsListFragmentDirections.actionViewLocationDetails(it)
-            findNavController().navigate(directions)
-        }
-    }
+    private val locationsAdapter by lazy { LocationsPagedListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

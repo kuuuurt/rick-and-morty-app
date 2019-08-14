@@ -2,8 +2,10 @@ package com.kurt.example.rickandmorty.core.presentation.episodes
 
 import android.net.Uri
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kurt.example.rickandmorty.core.R
@@ -34,8 +36,15 @@ class EpisodesListAdapter : BaseListAdapter<Episode>(
             txtEpisode.text = episode.episode
 
             setOnClickListener {
+                ViewCompat.setTransitionName(txtTitle, "txtTitle")
+                ViewCompat.setTransitionName(txtEpisode, "txtEpisode")
+                val extras = FragmentNavigatorExtras(
+                    txtTitle to txtTitle.transitionName,
+                    txtEpisode to txtEpisode.transitionName
+                )
                 findNavController().navigateUriWithDefaultOptions(
-                    Uri.parse("rickandmorty://episodedetails/${episode.id}")
+                    Uri.parse("rickandmorty://episodedetails/${episode.id}/${episode.name}/${episode.episode}"),
+                    extras
                 )
             }
         }
