@@ -35,9 +35,6 @@ class CharactersListFragment : BaseFragment<CharactersListViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
-
         DaggerCharactersListComponent
             .builder()
             .coreComponent(coreComponent())

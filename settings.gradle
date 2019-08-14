@@ -1,2 +1,2 @@
-include ':app', ':core', ':characters', ':locations', ':episodes'
+include ':app', ':core', ':characters', ':locations', ':episodes', ':nav'
 rootProject.name='Rick and Morty'

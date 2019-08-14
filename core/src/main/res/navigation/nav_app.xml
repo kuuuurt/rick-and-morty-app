@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/characters_list_fragment">
+
+
+    <fragment
+        android:id="@+id/characters_list_fragment"
+        android:name="com.kurt.example.rickandmorty.characters.presentation.characterslist.CharactersListFragment"
+        android:label="Characters">
+        <action
+            android:id="@+id/action_view_character_details"
+            app:destination="@+id/character_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/characters_list_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/character_details_fragment"
+        android:name="com.kurt.example.rickandmorty.characters.presentation.characterdetails.CharacterDetailsFragment"
+        android:label="Character Details">
+        <argument
+            android:name="character_id"
+            app:argType="integer" />
+        <argument
+            android:name="img_url"
+            app:argType="string" />
+        <argument
+            android:name="character_name"
+            app:argType="string" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="rickandmorty://characterdetails/{character_id}/{img_url}/{character_name}" />
+        <action
+            android:id="@+id/action_view_episode_details_from_character"
+            app:destination="@id/character_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/character_details_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/locations_list_fragment"
+        android:name="com.kurt.example.rickandmorty.locations.presentation.locationslist.LocationsListFragment"
+        android:label="Locations">
+        <action
+            android:id="@+id/action_view_location_details"
+            app:destination="@id/location_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/location_details_fragment"
+        android:name="com.kurt.example.rickandmorty.locations.presentation.locationdetails.LocationDetailsFragment"
+        android:label="Location Details">
+        <argument
+            android:name="location_id"
+            app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="dimension"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_view_character_details_from_location"
+            app:destination="@id/character_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/location_details_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodes_list_fragment"
+        android:name="com.kurt.example.rickandmorty.episodes.presentation.episodeslist.EpisodesListFragment"
+        android:label="Episodes">
+        <action
+            android:id="@+id/action_view_episode_details"
+            app:destination="@id/episode_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/episodes_list_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episode_details_fragment"
+        android:name="com.kurt.example.rickandmorty.episodes.presentation.episodedetails.EpisodeDetailsFragment"
+        android:label="Episode Details">
+        <argument
+            android:name="episode_id"
+            app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="episode"
+            app:argType="string" />
+        <deepLink app:uri="rickandmorty://episodedetails/{episode_id}/{name}/{episode}" />
+
+        <action
+            android:id="@+id/action_view_character_details_from_episode"
+            app:destination="@id/character_details_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/episode_details_fragment" />
+    </fragment>
+
+</navigation>
