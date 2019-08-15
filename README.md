@@ -48,9 +48,8 @@ This project is built using Clean Architecture and is structured in the followin
 
 ## TODO
 
-- Navigation
 - SQLDelight
-- Unit Testing
+- Testing
 
 ## Authors
 
