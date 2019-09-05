@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+apply from: "../shared-dependencies.gradle"
+apply from: "../shared-test-dependencies.gradle"
+apply from: "../shared-android-test-dependencies.gradle"
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
 
@@ -28,8 +32,4 @@ dependencies {
     implementation project(":characters")
     implementation project(":locations")
     implementation project(":episodes")
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

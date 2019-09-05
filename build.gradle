@@ -10,7 +10,8 @@ buildscript {
     ext {
         kotlin_version = '1.3.41'
         dagger_version = "2.24"
-        navigation_version = "2.1.0-beta02"
+        navigation_version = "2.1.0-rc01"
+        moshi_version = "1.8.0"
     }
     repositories {
         google()

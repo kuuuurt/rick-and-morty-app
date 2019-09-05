@@ -3,6 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply from: "../shared-dependencies.gradle"
+apply from: "../shared-test-dependencies.gradle"
+apply from: "../shared-android-test-dependencies.gradle"
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
 
@@ -27,11 +31,5 @@ android {
 
 dependencies {
     implementation project(":core")
-
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-
-    testImplementation 'junit:junit:4.12'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

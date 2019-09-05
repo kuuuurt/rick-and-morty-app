@@ -1,18 +1,13 @@
 package com.kurt.example.rickandmorty.characters.presentation.characterdetails
 
-import android.net.Uri
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -21,10 +16,8 @@ import com.kurt.example.rickandmorty.characters.di.CharacterDetailsModule
 import com.kurt.example.rickandmorty.characters.di.DaggerCharacterDetailsComponent
 import com.kurt.example.rickandmorty.core.presentation.BaseFragment
 import com.kurt.example.rickandmorty.core.presentation.UiState
-import com.kurt.example.rickandmorty.core.presentation.app.GlideApp
 import com.kurt.example.rickandmorty.core.presentation.app.coreComponent
 import com.kurt.example.rickandmorty.core.presentation.episodes.EpisodesListAdapter
-import com.kurt.example.rickandmorty.core.presentation.utils.navigateUriWithDefaultOptions
 import com.kurt.example.rickandmorty.core.presentation.views.EmptyView
 import com.kurt.example.rickandmorty.core.presentation.views.LoadingView
 import javax.inject.Inject
@@ -99,7 +92,7 @@ class CharacterDetailsFragment : BaseFragment<CharacterDetailsViewModel>() {
         recEpisodes.adapter = episodesAdapter
 
         viewModel.character.observe(this, Observer {
-            GlideApp.with(requireContext())
+            Glide.with(requireContext())
                 .load(it.image)
                 .into(imgCharacter)
 
